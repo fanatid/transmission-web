@@ -14,22 +14,22 @@
 
   function statusRenderer(value) {
     switch (value) {
-      case 0:
+      case TR_STATUS_STOPPED:
         return 'Stopped';
-      case 1:
-        return 'Check wait';
-      case 2:
-        return 'Check';
-      case 3:
-        return 'Download wait';
-      case 4:
-        return 'Download';
-      case 5:
-        return 'Seed wait';
-      case 6:
-        return 'Seed';
+      case TR_STATUS_CHECK_WAIT:
+            return 'Queued to check files';
+      case TR_STATUS_CHECK:
+        return 'Checking';
+      case TR_STATUS_DOWNLOAD_WAIT:
+        return 'Queued to download';
+      case TR_STATUS_DOWNLOAD:
+        return 'Downloading';
+      case TR_STATUS_SEED_WAIT:
+        return 'Queued to seed';
+      case TR_STATUS_SEED:
+        return 'Seeding';
       default:
-        return 'Unknow';
+        return 'Unknow status';
     }
   }
 
@@ -92,6 +92,9 @@
     },
     viewConfig: {
       stripeRows: true
+    },
+    selModel: {
+      mode: 'MULTI'
     }
   });
 })();

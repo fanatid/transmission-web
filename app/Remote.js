@@ -32,13 +32,14 @@ Ext.define('TrWeb.Remote', {
     this.application.emit('stop', error);
   },
 
-  sendRequest: function(data, callback) {
+  sendRequest: function(data, callback, context) {
     var _this = this;
 
     Ext.Ajax.request({
       url: '../rpc',
       method: 'POST',
       success: callback,
+      scope: context,
       failure: function(response, options) { _this.ajaxError(response, options) },
       headers: { 'X-Transmission-Session-Id': this.token },
       jsonData: data,
@@ -46,7 +47,30 @@ Ext.define('TrWeb.Remote', {
     });
   },
 
-  // 3.3
+  // 3.1 Torrent Action Requests
+  actionRequests: function(method, ids, args, callback, context) {
+    if (!args) args = {};
+    args['ids'] = ids;
+    var data = {
+      method: method,
+      arguments: args
+    };
+    this.sendRequest(data, callback, context);
+  },
+
+  torrentStart: function(ids, callback, context) {
+    this.actionRequests('torrent-start', ids, {}, callback, context);
+  },
+
+  torrentStartNow: function(ids, callback, context) {
+    this.actionRequests('torrent-start-now', ids, {}, callback, context);
+  },
+
+  torrentStop: function(ids, callback, context) {
+    this.actionRequests('torrent-stop', ids, {}, callback, context);
+  },
+
+  // 3.3 Torrent Accessors
   torrentGet: function(ids, fields, callback, context) {
     var data = {
       method: 'torrent-get',
@@ -61,7 +85,7 @@ Ext.define('TrWeb.Remote', {
     });
   },
 
-  // 4.7
+  // 4.7 Free Space
   freeSpace: function(path, callback, context) {
     var data = {
       method: 'free-space',

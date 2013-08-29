@@ -13,20 +13,43 @@ Ext.define('TrWeb.controller.Torrents', {
     'torrents.List'
   ],
 
+  refs: [{
+    ref: 'torrentsList',
+    selector: 'torrentslist'
+  }],
+
   constructor: function(args) {
-    args.application.addListener('start', this.onStart, this);
-    args.application.addListener('stop', this.onStop, this);
-    args.application.addListener('update', this.onUpdate, this);
+    var me = this;
 
     var _remote;
-    this.__defineGetter__('remote', function() {
+    me.__defineGetter__('remote', function() {
       return _remote;
     });
-    this.__defineSetter__('remote', function(remote) {
+    me.__defineSetter__('remote', function(remote) {
         _remote = remote;
     });
 
-    this.callParent(arguments);
+    me.__defineGetter__('application', function() {
+      return args.application;
+    });
+
+    me.__defineGetter__('selectedTorrents', function() {
+      return me.getTorrentsList().getSelectionModel().getSelection();
+    })
+
+    me.__defineGetter__('selectedTorrentsIds', function() {
+      var ids = []
+      Ext.each(me.selectedTorrents, function(record) {
+        ids.push(record.get('id'));
+      });
+      return ids;
+    });
+
+    args.application.addListener('start',  me.onStart,  me);
+    args.application.addListener('stop',   me.onStop,   me);
+    args.application.addListener('update', me.onUpdate, me);
+
+    me.callParent(arguments);
   },
 
   onStart: function() {
@@ -41,6 +64,7 @@ Ext.define('TrWeb.controller.Torrents', {
   },
 
   updateTorrentsList: function() {
+    var me = this;
     var fields = [
       'id',
       'name',
@@ -53,8 +77,8 @@ Ext.define('TrWeb.controller.Torrents', {
       'uploadedEver'
     ];
 
-    this.remote.torrentGet(undefined, fields, function(torrents, remove) {
-      var store = this.getStore('Torrents');
+    me.remote.torrentGet(undefined, fields, function(torrents, remove) {
+      var store = me.getStore('Torrents');
 
       var allTorrents = {};
       for (var key in torrents) {
@@ -80,6 +104,36 @@ Ext.define('TrWeb.controller.Torrents', {
       store.commitChanges();
 
       store.sort();
-    }, this);
+
+      me.selectedTorrentsUpdateMenu();
+    }, me);
+  },
+
+  init: function() {
+    this.control({
+      'torrentslist': {
+        selectionchange: this.onSelectionChange
+      }
+    });
+  },
+
+  onSelectionChange: function(grid, selected, eOpts) {
+    this.selectedTorrentsUpdateMenu();
+  },
+
+  selectedTorrentsUpdateMenu: function() {
+    this.application.getController('MainMenu').torrentMenuSetActive(this.selectedTorrents);
+  },
+
+  selectedTorrentsStart: function() {
+    this.remote.torrentStart(this.selectedTorrentsIds);
+  },
+
+  selectedTorrentsStartNow: function() {
+    this.remote.torrentStartNow(this.selectedTorrentsIds);
+  },
+
+  selectedTorrentsPause: function() {
+    this.remote.torrentStop(this.selectedTorrentsIds);
   }
 });

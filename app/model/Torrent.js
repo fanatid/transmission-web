@@ -17,6 +17,10 @@
       { name: 'rateUpload',   type: 'int' },
       { name: 'eta',          type: 'int', sortType: sortETA },
       { name: 'uploadedEver', type: 'int' }
-    ]
+    ],
+
+    isActive: function() {
+      return (this.get('status') != TR_STATUS_STOPPED);
+    }
   });
 })();

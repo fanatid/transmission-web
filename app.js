@@ -14,6 +14,7 @@ Ext.application({
     'Ext.container.Viewport',
     'Ext.window.MessageBox',
     'Ext.util.Point',
+    'TrWeb.Const',
     'TrWeb.Remote'
   ],
 
@@ -40,9 +41,6 @@ Ext.application({
   },
 
   launch: function() {
-    this.addListener('stop',  this.onStop,  this);
-    this.addListener('start', this.onStart, this);
-
     var remote = Ext.create('TrWeb.Remote', { application: this });
     this.getController('Torrents').remote = remote;
 
@@ -57,6 +55,8 @@ Ext.application({
       ]
     });
 
+    this.addListener('stop',  this.onStop,  this);
+    this.addListener('start', this.onStart, this);
     this.emit('start');
   },
 

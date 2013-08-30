@@ -43,7 +43,7 @@ Ext.define('TrWeb.Remote', {
       failure: function(response, options) { _this.ajaxError(response, options) },
       headers: { 'X-Transmission-Session-Id': this.token },
       jsonData: data,
-      timeout: 2500
+      timeout: 1500
     });
   },
 

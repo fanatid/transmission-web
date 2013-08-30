@@ -20,29 +20,33 @@ Ext.application({
 
   controllers: [
     'MainMenu',
-    'Torrents'
+    'Torrents',
+    'TorrentDetails'
   ],
 
   constructor: function() {
-    this.events = {};
+    var me = this;
 
     var _task = Ext.create('Ext.util.TaskRunner').newTask({
-      run: function() {
-        this.emit('update');
-      },
-      interval: 5000,
-      scope: this
+      run:      me.fireEvent,
+      scope:    me,
+      args:     ['update'],
+      interval: 3000
     });
-    this.__defineGetter__('task', function() {
+    me.__defineGetter__('task', function() {
       return _task;
     });
 
-    this.callParent(arguments);
+    me.callParent(arguments);
   },
 
   launch: function() {
-    var remote = Ext.create('TrWeb.Remote', { application: this });
-    this.getController('Torrents').remote = remote;
+    var me = this;
+
+    me.remote         = Ext.create('TrWeb.Remote', { application: me });
+    me.mainmenu       = Ext.widget('mainmenu');
+    me.torrentgrid    = Ext.widget('torrentgrid', { flex: 5 });
+    me.torrentdetails = Ext.widget('torrentdetails', { flex: 2 });
 
     Ext.create('Ext.container.Viewport', {
       layout: {
@@ -50,14 +54,15 @@ Ext.application({
         align: 'stretch'
       },
       items: [
-        { xtype: 'mainmenu' },
-        { xtype: 'torrentslist', flex: 1 }
-      ]
+        me.mainmenu,
+        me.torrentgrid,
+        me.torrentdetails
+      ],
     });
 
-    this.addListener('stop',  this.onStop,  this);
-    this.addListener('start', this.onStart, this);
-    this.emit('start');
+    me.addListener('stop',  me.onStop,  me);
+    me.addListener('start', me.onStart, me);
+    me.fireEvent('start');
   },
 
   onStart: function() {
@@ -77,19 +82,5 @@ Ext.application({
       buttons: Ext.Msg.OK,
       icon: Ext.Msg.ERROR
     });
-  },
-
-  addListener: function(event, listener, context) {
-    if (!(event in this.events))
-      this.events[event] = new Array();
-
-    this.events[event].push({ listener: listener, context: context });
-  },
-
-  emit: function(event) {
-    var events = this.events[event];
-    var args = Array.prototype.slice.call(arguments, 1);
-    for (i in events)
-      events[i].listener.apply(events[i].context, args);
   }
 });

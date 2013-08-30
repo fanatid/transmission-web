@@ -10,31 +10,23 @@ Ext.define('TrWeb.controller.Torrents', {
   ],
 
   views: [
-    'torrents.List'
+    'TorrentGrid'
   ],
 
   refs: [{
-    ref: 'torrentsList',
-    selector: 'torrentslist'
+    ref: 'torrentGrid',
+    selector: 'torrentgrid'
   }],
 
   constructor: function(args) {
     var me = this;
-
-    var _remote;
-    me.__defineGetter__('remote', function() {
-      return _remote;
-    });
-    me.__defineSetter__('remote', function(remote) {
-        _remote = remote;
-    });
 
     me.__defineGetter__('application', function() {
       return args.application;
     });
 
     me.__defineGetter__('selectedTorrents', function() {
-      return me.getTorrentsList().getSelectionModel().getSelection();
+      return me.getTorrentGrid().getSelectionModel().getSelection();
     })
 
     me.__defineGetter__('selectedTorrentsIds', function() {
@@ -45,9 +37,9 @@ Ext.define('TrWeb.controller.Torrents', {
       return ids;
     });
 
-    args.application.addListener('start',  me.onStart,  me);
-    args.application.addListener('stop',   me.onStop,   me);
-    args.application.addListener('update', me.onUpdate, me);
+    args.application.on('start',  me.onStart,  me);
+    args.application.on('stop',   me.onStop,   me);
+    args.application.on('update', me.onUpdate, me);
 
     me.callParent(arguments);
   },
@@ -77,7 +69,7 @@ Ext.define('TrWeb.controller.Torrents', {
       'uploadedEver'
     ];
 
-    me.remote.torrentGet(undefined, fields, function(torrents, remove) {
+    me.application.remote.torrentGet(undefined, fields, function(torrents, remove) {
       var store = me.getStore('Torrents');
 
       var allTorrents = {};
@@ -105,35 +97,7 @@ Ext.define('TrWeb.controller.Torrents', {
 
       store.sort();
 
-      me.selectedTorrentsUpdateMenu();
+      me.application.getController('MainMenu').torrentMenuSetActive(this.selectedTorrents);
     }, me);
-  },
-
-  init: function() {
-    this.control({
-      'torrentslist': {
-        selectionchange: this.onSelectionChange
-      }
-    });
-  },
-
-  onSelectionChange: function(grid, selected, eOpts) {
-    this.selectedTorrentsUpdateMenu();
-  },
-
-  selectedTorrentsUpdateMenu: function() {
-    this.application.getController('MainMenu').torrentMenuSetActive(this.selectedTorrents);
-  },
-
-  selectedTorrentsStart: function() {
-    this.remote.torrentStart(this.selectedTorrentsIds);
-  },
-
-  selectedTorrentsStartNow: function() {
-    this.remote.torrentStartNow(this.selectedTorrentsIds);
-  },
-
-  selectedTorrentsPause: function() {
-    this.remote.torrentStop(this.selectedTorrentsIds);
   }
 });

@@ -6,14 +6,22 @@ Ext.define('TrWeb.controller.MainMenu', {
   ],
 
   constructor: function(args) {
-    args.application.addListener('start', this.onStart, this);
-    args.application.addListener('stop',  this.onStop,  this);
+    args.application.on('start', this.onStart, this);
+    args.application.on('stop',  this.onStop,  this);
 
     this.__defineGetter__('application', function() {
       return args.application;
     });
 
     this.callParent(arguments);
+  },
+
+  onLaunch: function(application) {
+    var me = this;
+
+    application.torrentgrid.on('selectionchange', function(grid, selected, eOpts) {
+      me.torrentMenuSetActive(selected);
+    });
   },
 
   onStart: function() {
@@ -38,28 +46,25 @@ Ext.define('TrWeb.controller.MainMenu', {
 
   init: function() {
     this.control({
-      '#mainmenu-torrent > [text="Start"]': {
-        click: this.onTorrentStartClick
-      },
-      '#mainmenu-torrent > [text="Start Now"]': {
-        click: this.onTorrentStartNowClick
-      },
-      '#mainmenu-torrent > [text="Pause"]': {
-        click: this.onTorrentPauseClick
-      }
+      '#mainmenu-torrent > [text="Start"]':     { click: this.onTorrentStartClick },
+      '#mainmenu-torrent > [text="Start Now"]': { click: this.onTorrentStartNowClick },
+      '#mainmenu-torrent > [text="Pause"]':     { click: this.onTorrentPauseClick }
     });
   },
 
   onTorrentStartClick: function(btn, e, eOpts) {
-    this.application.getController('Torrents').selectedTorrentsStart();
+    this.application.remote.torrentStart(
+      this.application.getController('Torrents').selectedTorrentsIds);
   },
 
   onTorrentStartNowClick: function(btn, e, eOpts) {
-    this.application.getController('Torrents').selectedTorrentsStartNow();
+    this.application.remote.torrentStartNow(
+      this.application.getController('Torrents').selectedTorrentsIds);
   },
 
   onTorrentPauseClick: function(btn, e, eOpts) {
-    this.application.getController('Torrents').selectedTorrentsPause();
+    this.application.remote.torrentStop(
+      this.application.getController('Torrents').selectedTorrentsIds);
   },
 
   torrentMenuSetActive: function(records) {

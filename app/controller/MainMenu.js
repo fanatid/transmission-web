@@ -46,23 +46,34 @@ Ext.define('TrWeb.controller.MainMenu', {
 
   init: function() {
     this.control({
+      '#mainmenu-edit > [text="Select All"]':   { click: this.onEditSelectAllClick },
+      '#mainmenu-edit > [text="Deselect All"]': { click: this.onEditDeselectAllClick },
+
       '#mainmenu-torrent > [text="Start"]':     { click: this.onTorrentStartClick },
       '#mainmenu-torrent > [text="Start Now"]': { click: this.onTorrentStartNowClick },
       '#mainmenu-torrent > [text="Pause"]':     { click: this.onTorrentPauseClick }
     });
   },
 
-  onTorrentStartClick: function(btn, e, eOpts) {
+  onEditSelectAllClick: function() {
+    this.application.torrentgrid.getSelectionModel().selectAll();
+  },
+
+  onEditDeselectAllClick: function() {
+    this.application.torrentgrid.getSelectionModel().deselectAll();
+  },
+
+  onTorrentStartClick: function() {
     this.application.remote.torrentStart(
       this.application.getController('Torrents').selectedTorrentsIds);
   },
 
-  onTorrentStartNowClick: function(btn, e, eOpts) {
+  onTorrentStartNowClick: function() {
     this.application.remote.torrentStartNow(
       this.application.getController('Torrents').selectedTorrentsIds);
   },
 
-  onTorrentPauseClick: function(btn, e, eOpts) {
+  onTorrentPauseClick: function() {
     this.application.remote.torrentStop(
       this.application.getController('Torrents').selectedTorrentsIds);
   },

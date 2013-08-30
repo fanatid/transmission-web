@@ -15,7 +15,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.grid.filter.Filter": [],
   "TrWeb.view.details.DetailsPanel": [],
   "Ext.ux.GroupTabRenderer": [],
-  "TrWeb.Const": [],
   "TrWeb.controller.Torrents": [],
   "Ext.ux.ajax.DataSimlet": [],
   "Ext.ux.grid.TransformGrid": [],
@@ -98,7 +97,6 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.GroupTabRenderer": [
     "plugin.grouptabrenderer"
   ],
-  "TrWeb.Const": [],
   "TrWeb.controller.Torrents": [],
   "Ext.ux.ajax.DataSimlet": [],
   "Ext.ux.grid.TransformGrid": [],

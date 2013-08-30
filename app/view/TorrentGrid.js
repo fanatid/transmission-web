@@ -12,29 +12,21 @@
     return (value).toFixed(2).toString() + ' GiB';
   }
 
-  function statusRenderer(value) {
-    switch (value) {
-      case TR_STATUS_STOPPED:
-        return 'Stopped';
-      case TR_STATUS_CHECK_WAIT:
-            return 'Queued to check files';
-      case TR_STATUS_CHECK:
-        return 'Checking';
-      case TR_STATUS_DOWNLOAD_WAIT:
-        return 'Queued to download';
-      case TR_STATUS_DOWNLOAD:
-        return 'Downloading';
-      case TR_STATUS_SEED_WAIT:
-        return 'Queued to seed';
-      case TR_STATUS_SEED:
-        return 'Seeding';
-      default:
-        return 'Unknow status';
-    }
-  }
+  function percentDoneRenderer(value, metaData, record) {
+    var tpl = '\
+<div class="x-progress x-progress-default x-border-box">\
+  <div class="x-progress-bar x-progress-bar-default" style="width: {1}%">\
+    <div class="x-progress-text" style="width: 100%">\
+      <div>{0}</div>\
+    </div>\
+  </div>\
+  <div class="x-progress-text x-progress-text-back" style="width: 100%">{0}</div>\
+</div>';
 
-  function percentDoneRenderer(value) {
-    return (value*100).toFixed(2).toString() + '%';
+    value = (value*100).toFixed(2);
+    var text = record.getHumanStatus() + ' ' + value + ' %';
+
+    return Ext.String.format(tpl, text, value);
   }
 
   function rateDownloadRenderer(value) {
@@ -79,7 +71,6 @@
         { text: 'id',         dataIndex: 'id', hidden: true },
         { text: 'Name',       dataIndex: 'name', flex: 8 },
         { text: 'Size',       dataIndex: 'totalSize',    renderer: sizeToHuman },
-        { text: 'Status',     dataIndex: 'status',       renderer: statusRenderer },
         { text: 'Progress',   dataIndex: 'percentDone',  renderer: percentDoneRenderer, flex: 2 },
         { text: 'Down Speed', dataIndex: 'rateDownload', renderer: rateDownloadRenderer },
         { text: 'Up Speed',   dataIndex: 'rateUpload',   renderer: rateUploadRenderer },

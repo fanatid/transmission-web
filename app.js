@@ -14,7 +14,6 @@ Ext.application({
     'Ext.container.Viewport',
     'Ext.window.MessageBox',
     'Ext.util.Point',
-    'TrWeb.Const',
     'TrWeb.Remote'
   ],
 
@@ -57,7 +56,7 @@ Ext.application({
         me.mainmenu,
         me.torrentgrid,
         me.torrentdetails
-      ],
+      ]
     });
 
     me.addListener('stop',  me.onStop,  me);

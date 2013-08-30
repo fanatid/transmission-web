@@ -6,12 +6,12 @@ Ext.define('TrWeb.controller.MainMenu', {
   ],
 
   constructor: function(args) {
-    args.application.on('start', this.onStart, this);
-    args.application.on('stop',  this.onStop,  this);
-
     this.__defineGetter__('application', function() {
       return args.application;
     });
+
+    args.application.on('start', this.onStart, this);
+    args.application.on('stop',  this.onStop,  this);
 
     this.callParent(arguments);
   },
@@ -19,7 +19,7 @@ Ext.define('TrWeb.controller.MainMenu', {
   onLaunch: function(application) {
     var me = this;
 
-    application.torrentgrid.on('selectionchange', function(grid, selected, eOpts) {
+    application.torrentgrid.on('selectionchange', function(grid, selected) {
       me.torrentMenuSetActive(selected);
     });
   },

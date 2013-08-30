@@ -5,41 +5,48 @@
  * metadata-driven class system features 
  */
 Ext.Loader.addClassPathMappings({
-  "transmission-web.Application": "app/application.js",
-  "transmission-web": "app",
   " Ext.Msg": "ext/src/window/MessageBox.js",
   "Ext": "ext/src",
+  "TrWeb": "app",
   "Ext.rtl.EventObjectImpl": "ext/src/rtl/EventObject.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.BoxReorderer": [],
   "Ext.ux.grid.filter.Filter": [],
+  "TrWeb.view.details.DetailsPanel": [],
   "Ext.ux.GroupTabRenderer": [],
+  "TrWeb.controller.Torrents": [],
   "Ext.ux.ajax.DataSimlet": [],
   "Ext.ux.grid.TransformGrid": [],
   "Ext.ux.FieldReplicator": [],
-  "transmission-web.controller.Main": [],
+  "TrWeb.model.Torrent": [],
+  "TrWeb.view.details.PeersTab": [],
   "Ext.ux.grid.filter.ListFilter": [],
   "Ext.ux.ajax.XmlSimlet": [],
   "Ext.ux.event.Driver": [],
   "Ext.ux.dd.PanelFieldDragZone": [],
   "Ext.ux.DataView.DragSelector": [],
+  "TrWeb.view.details.FilesTab": [],
   "Ext.ux.grid.menu.ListMenu": [],
   "Ext.ux.GMapPanel": [],
+  "TrWeb.Remote": [],
   "Ext.ux.form.MultiSelect": [
     "Ext.ux.Multiselect"
   ],
+  "TrWeb.controller.TorrentDetails": [],
   "Ext.ux.DataView.LabelEditor": [],
   "Ext.ux.GroupTabPanel": [],
   "Ext.ux.grid.filter.StringFilter": [],
+  "TrWeb.store.Torrents": [],
   "Ext.ux.statusbar.ValidationStatus": [],
+  "TrWeb.view.MainMenu": [],
   "Ext.ux.layout.Center": [],
   "Ext.ux.PreviewPlugin": [],
   "Ext.ux.DataView.Animated": [],
+  "TrWeb.view.details.DetailsTab": [],
   "Ext.ux.ajax.SimXhr": [],
   "Ext.ux.event.RecorderManager": [],
   "Ext.ux.ProgressBarPager": [],
-  "transmission-web.view.Viewport": [],
   "Ext.ux.CellDragDrop": [],
   "Ext.ux.statusbar.StatusBar": [
     "Ext.ux.StatusBar"
@@ -48,21 +55,23 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.SlidingPager": [],
   "Ext.ux.TabReorderer": [],
   "Ext.ux.grid.filter.NumericFilter": [],
+  "TrWeb.view.TorrentGrid": [],
   "Ext.ux.grid.menu.RangeMenu": [],
   "Ext.ux.RowExpander": [],
   "Ext.ux.event.Recorder": [],
   "Ext.ux.event.Player": [],
+  "TrWeb.view.details.StatusTab": [],
   "Ext.ux.ajax.SimManager": [],
   "Ext.ux.grid.filter.BooleanFilter": [],
   "Ext.ux.ToolbarDroppable": [],
   "Ext.ux.event.Maker": [],
+  "TrWeb.view.details.OptionsTab": [],
   "Ext.ux.TabScrollerMenu": [],
   "Ext.ux.IFrame": [],
   "Ext.ux.DataView.Draggable": [],
   "Ext.ux.TabCloseMenu": [],
   "Ext.ux.form.SearchField": [],
   "Ext.ux.dd.CellFieldDropZone": [],
-  "transmission-web.Application": [],
   "Ext.ux.LiveSearchGridPanel": [],
   "Ext.ux.DataTip": [],
   "Ext.ux.grid.filter.DateFilter": [],
@@ -74,21 +83,28 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.ajax.JsonSimlet": [],
   "Ext.ux.Spotlight": [],
   "Ext.ux.grid.FiltersFeature": [],
+  "TrWeb.controller.MainMenu": [],
   "Ext.ux.data.PagingMemoryProxy": [
     "Ext.data.PagingMemoryProxy"
-  ],
-  "transmission-web.view.Main": []
+  ]
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.BoxReorderer": [],
   "Ext.ux.grid.filter.Filter": [],
+  "TrWeb.view.details.DetailsPanel": [
+    "widget.torrentdetails"
+  ],
   "Ext.ux.GroupTabRenderer": [
     "plugin.grouptabrenderer"
   ],
+  "TrWeb.controller.Torrents": [],
   "Ext.ux.ajax.DataSimlet": [],
   "Ext.ux.grid.TransformGrid": [],
   "Ext.ux.FieldReplicator": [],
-  "transmission-web.controller.Main": [],
+  "TrWeb.model.Torrent": [],
+  "TrWeb.view.details.PeersTab": [
+    "widget.peerstab"
+  ],
   "Ext.ux.grid.filter.ListFilter": [
     "gridfilter.list"
   ],
@@ -98,14 +114,19 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.event.Driver": [],
   "Ext.ux.dd.PanelFieldDragZone": [],
   "Ext.ux.DataView.DragSelector": [],
+  "TrWeb.view.details.FilesTab": [
+    "widget.filestab"
+  ],
   "Ext.ux.grid.menu.ListMenu": [],
   "Ext.ux.GMapPanel": [
     "widget.gmappanel"
   ],
+  "TrWeb.Remote": [],
   "Ext.ux.form.MultiSelect": [
     "widget.multiselect",
     "widget.multiselectfield"
   ],
+  "TrWeb.controller.TorrentDetails": [],
   "Ext.ux.DataView.LabelEditor": [],
   "Ext.ux.GroupTabPanel": [
     "widget.grouptabpanel"
@@ -113,7 +134,11 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.grid.filter.StringFilter": [
     "gridfilter.string"
   ],
+  "TrWeb.store.Torrents": [],
   "Ext.ux.statusbar.ValidationStatus": [],
+  "TrWeb.view.MainMenu": [
+    "widget.mainmenu"
+  ],
   "Ext.ux.layout.Center": [
     "layout.ux.center"
   ],
@@ -121,12 +146,14 @@ Ext.ClassManager.addNameAliasMappings({
     "plugin.preview"
   ],
   "Ext.ux.DataView.Animated": [],
+  "TrWeb.view.details.DetailsTab": [
+    "widget.detailstab"
+  ],
   "Ext.ux.ajax.SimXhr": [],
   "Ext.ux.event.RecorderManager": [
     "widget.eventrecordermanager"
   ],
   "Ext.ux.ProgressBarPager": [],
-  "transmission-web.view.Viewport": [],
   "Ext.ux.CellDragDrop": [
     "plugin.celldragdrop"
   ],
@@ -141,16 +168,25 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.grid.filter.NumericFilter": [
     "gridfilter.numeric"
   ],
+  "TrWeb.view.TorrentGrid": [
+    "widget.torrentgrid"
+  ],
   "Ext.ux.grid.menu.RangeMenu": [],
   "Ext.ux.RowExpander": [],
   "Ext.ux.event.Recorder": [],
   "Ext.ux.event.Player": [],
+  "TrWeb.view.details.StatusTab": [
+    "widget.statustab"
+  ],
   "Ext.ux.ajax.SimManager": [],
   "Ext.ux.grid.filter.BooleanFilter": [
     "gridfilter.boolean"
   ],
   "Ext.ux.ToolbarDroppable": [],
   "Ext.ux.event.Maker": [],
+  "TrWeb.view.details.OptionsTab": [
+    "widget.optionstab"
+  ],
   "Ext.ux.TabScrollerMenu": [
     "plugin.tabscrollermenu"
   ],
@@ -165,7 +201,6 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.searchfield"
   ],
   "Ext.ux.dd.CellFieldDropZone": [],
-  "transmission-web.Application": [],
   "Ext.ux.LiveSearchGridPanel": [],
   "Ext.ux.DataTip": [
     "plugin.datatip"
@@ -190,10 +225,8 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.grid.FiltersFeature": [
     "feature.filters"
   ],
+  "TrWeb.controller.MainMenu": [],
   "Ext.ux.data.PagingMemoryProxy": [
     "proxy.pagingmemory"
-  ],
-  "transmission-web.view.Main": [
-    "widget.app-main"
   ]
 });

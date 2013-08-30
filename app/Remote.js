@@ -29,7 +29,7 @@ Ext.define('TrWeb.Remote', {
     if (!error.length)
       error = 'Server not responding';
 
-    this.application.emit('stop', error);
+    this.application.fireEvent('stop', error);
   },
 
   sendRequest: function(data, callback, context) {

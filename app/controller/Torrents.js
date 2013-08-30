@@ -13,11 +13,6 @@ Ext.define('TrWeb.controller.Torrents', {
     'TorrentGrid'
   ],
 
-  refs: [{
-    ref: 'torrentGrid',
-    selector: 'torrentgrid'
-  }],
-
   constructor: function(args) {
     var me = this;
 
@@ -26,7 +21,7 @@ Ext.define('TrWeb.controller.Torrents', {
     });
 
     me.__defineGetter__('selectedTorrents', function() {
-      return me.getTorrentGrid().getSelectionModel().getSelection();
+      return me.application.torrentgrid.getSelectionModel().getSelection();
     })
 
     me.__defineGetter__('selectedTorrentsIds', function() {

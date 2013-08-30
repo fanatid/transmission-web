@@ -14,7 +14,7 @@ Ext.define('TrWeb.view.MainMenu', {
           { text: 'Open URL...', disabled: true },
           '-',
           { text: 'Start All',   disabled: true },
-          { text: 'Stop All',    disabled: true },
+          { text: 'Stop All',    disabled: true }
         ]
       }
     },
@@ -49,7 +49,7 @@ Ext.define('TrWeb.view.MainMenu', {
           { text: 'Verify Local Data',       disabled: true, cls: 'verify-local-data' },
           '-',
           { text: 'Remove',                  disabled: true, cls: 'remove' },
-          { text: 'Delete Files and Remove', disabled: true, cls: 'delete-files-and-remove' },
+          { text: 'Delete Files and Remove', disabled: true, cls: 'delete-files-and-remove' }
         ]
       }
     },

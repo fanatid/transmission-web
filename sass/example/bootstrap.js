@@ -19,6 +19,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.ajax.DataSimlet": [],
   "Ext.ux.grid.TransformGrid": [],
   "Ext.ux.FieldReplicator": [],
+  "TrWeb.model.Peer": [],
   "TrWeb.model.Torrent": [],
   "TrWeb.view.details.PeersTab": [],
   "Ext.ux.grid.filter.ListFilter": [],
@@ -43,7 +44,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.layout.Center": [],
   "Ext.ux.PreviewPlugin": [],
   "Ext.ux.DataView.Animated": [],
-  "TrWeb.view.details.DetailsTab": [],
+  "TrWeb.Utils": [],
   "Ext.ux.ajax.SimXhr": [],
   "Ext.ux.event.RecorderManager": [],
   "Ext.ux.ProgressBarPager": [],
@@ -60,12 +61,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.RowExpander": [],
   "Ext.ux.event.Recorder": [],
   "Ext.ux.event.Player": [],
-  "TrWeb.view.details.StatusTab": [],
   "Ext.ux.ajax.SimManager": [],
+  "TrWeb.store.Peers": [],
   "Ext.ux.grid.filter.BooleanFilter": [],
   "Ext.ux.ToolbarDroppable": [],
   "Ext.ux.event.Maker": [],
-  "TrWeb.view.details.OptionsTab": [],
   "Ext.ux.TabScrollerMenu": [],
   "Ext.ux.IFrame": [],
   "Ext.ux.DataView.Draggable": [],
@@ -81,6 +81,7 @@ Ext.ClassManager.addNameAlternateMappings({
     "Ext.ux.ItemSelector"
   ],
   "Ext.ux.ajax.JsonSimlet": [],
+  "TrWeb.view.details.TrackersTab": [],
   "Ext.ux.Spotlight": [],
   "Ext.ux.grid.FiltersFeature": [],
   "TrWeb.controller.MainMenu": [],
@@ -101,6 +102,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.ajax.DataSimlet": [],
   "Ext.ux.grid.TransformGrid": [],
   "Ext.ux.FieldReplicator": [],
+  "TrWeb.model.Peer": [],
   "TrWeb.model.Torrent": [],
   "TrWeb.view.details.PeersTab": [
     "widget.peerstab"
@@ -146,9 +148,7 @@ Ext.ClassManager.addNameAliasMappings({
     "plugin.preview"
   ],
   "Ext.ux.DataView.Animated": [],
-  "TrWeb.view.details.DetailsTab": [
-    "widget.detailstab"
-  ],
+  "TrWeb.Utils": [],
   "Ext.ux.ajax.SimXhr": [],
   "Ext.ux.event.RecorderManager": [
     "widget.eventrecordermanager"
@@ -175,18 +175,13 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.RowExpander": [],
   "Ext.ux.event.Recorder": [],
   "Ext.ux.event.Player": [],
-  "TrWeb.view.details.StatusTab": [
-    "widget.statustab"
-  ],
   "Ext.ux.ajax.SimManager": [],
+  "TrWeb.store.Peers": [],
   "Ext.ux.grid.filter.BooleanFilter": [
     "gridfilter.boolean"
   ],
   "Ext.ux.ToolbarDroppable": [],
   "Ext.ux.event.Maker": [],
-  "TrWeb.view.details.OptionsTab": [
-    "widget.optionstab"
-  ],
   "Ext.ux.TabScrollerMenu": [
     "plugin.tabscrollermenu"
   ],
@@ -220,6 +215,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Ext.ux.ajax.JsonSimlet": [
     "simlet.json"
+  ],
+  "TrWeb.view.details.TrackersTab": [
+    "widget.trackerstab"
   ],
   "Ext.ux.Spotlight": [],
   "Ext.ux.grid.FiltersFeature": [

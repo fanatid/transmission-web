@@ -14,7 +14,8 @@ Ext.application({
     'Ext.container.Viewport',
     'Ext.window.MessageBox',
     'Ext.util.Point',
-    'TrWeb.Remote'
+    'TrWeb.Remote',
+    'TrWeb.Utils'
   ],
 
   controllers: [

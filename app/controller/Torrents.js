@@ -32,21 +32,21 @@ Ext.define('TrWeb.controller.Torrents', {
       return ids;
     });
 
-    args.application.on('start',  me.onStart,  me);
-    args.application.on('stop',   me.onStop,   me);
-    args.application.on('update', me.onUpdate, me);
+    args.application.on('start',  me.onApplicationStart,  me);
+    args.application.on('stop',   me.onApplicationStop,   me);
+    args.application.on('update', me.onApplicationUpdate, me);
 
     me.callParent(arguments);
   },
 
-  onStart: function() {
+  onApplicationStart: function() {
   },
 
-  onStop: function() {
+  onApplicationStop: function() {
     this.getStore('Torrents').removeAll();
   },
 
-  onUpdate: function() {
+  onApplicationUpdate: function() {
     this.updateTorrentsList();
   },
 

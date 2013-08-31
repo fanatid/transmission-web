@@ -1,40 +1,9 @@
 (function() {
-  function sizeToHuman(value) {
-    if (value < 1024)
-      return (value).toFixed(2).toString() + ' B';
-    value = value / 1024;
-    if (value < 1024)
-      return (value).toFixed(2).toString() + ' KiB';
-    value = value / 1024;
-    if (value < 1024)
-      return (value).toFixed(2).toString() + ' MiB';
-    value = value / 1024;
-    return (value).toFixed(2).toString() + ' GiB';
-  }
-
   function percentDoneRenderer(value, metaData, record) {
-    var tpl = '\
-<div class="x-progress x-progress-default x-border-box">\
-  <div class="x-progress-bar x-progress-bar-default" style="width: {1}%">\
-    <div class="x-progress-text" style="width: 100%">\
-      <div>{0}</div>\
-    </div>\
-  </div>\
-  <div class="x-progress-text x-progress-text-back" style="width: 100%">{0}</div>\
-</div>';
-
     value = (value*100).toFixed(2);
     var text = record.getHumanStatus() + ' ' + value + ' %';
 
-    return Ext.String.format(tpl, text, value);
-  }
-
-  function rateDownloadRenderer(value) {
-    return sizeToHuman(value) + '/s';
-  }
-
-  function rateUploadRenderer(value) {
-    return sizeToHuman(value) + '/s';
+    return TrWeb.Utils.cellProgressBarRenderer(text, value);
   }
 
   function ETARenderer(value) {
@@ -70,12 +39,12 @@
       items: [
         { text: 'id',         dataIndex: 'id', hidden: true },
         { text: 'Name',       dataIndex: 'name', flex: 8 },
-        { text: 'Size',       dataIndex: 'totalSize',    renderer: sizeToHuman },
+        { text: 'Size',       dataIndex: 'totalSize',    renderer: TrWeb.Utils.sizeToHuman },
         { text: 'Progress',   dataIndex: 'percentDone',  renderer: percentDoneRenderer, flex: 2 },
-        { text: 'Down Speed', dataIndex: 'rateDownload', renderer: rateDownloadRenderer },
-        { text: 'Up Speed',   dataIndex: 'rateUpload',   renderer: rateUploadRenderer },
+        { text: 'Down Speed', dataIndex: 'rateDownload', renderer: TrWeb.Utils.speedToHuman },
+        { text: 'Up Speed',   dataIndex: 'rateUpload',   renderer: TrWeb.Utils.speedToHuman },
         { text: 'ETA',        dataIndex: 'eta',          renderer: ETARenderer },
-        { text: 'Uploaded',   dataIndex: 'uploadedEver', renderer: sizeToHuman }
+        { text: 'Uploaded',   dataIndex: 'uploadedEver', renderer: TrWeb.Utils.sizeToHuman }
       ],
       defaults: {
         flex: 1

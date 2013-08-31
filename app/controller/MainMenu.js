@@ -10,8 +10,8 @@ Ext.define('TrWeb.controller.MainMenu', {
       return args.application;
     });
 
-    args.application.on('start', this.onStart, this);
-    args.application.on('stop',  this.onStop,  this);
+    args.application.on('start', this.onApplicationStart, this);
+    args.application.on('stop',  this.onApplicationStop,  this);
 
     this.callParent(arguments);
   },
@@ -24,7 +24,7 @@ Ext.define('TrWeb.controller.MainMenu', {
     });
   },
 
-  onStart: function() {
+  onApplicationStart: function() {
     var items = new Array().concat(
       Ext.ComponentQuery.query("#mainmenu-file > menuitem"),
       Ext.ComponentQuery.query("#mainmenu-edit > menuitem"),
@@ -36,7 +36,7 @@ Ext.define('TrWeb.controller.MainMenu', {
     })
   },
 
-  onStop: function() {
+  onApplicationStop: function() {
     var items = Ext.ComponentQuery.query("mainmenu > menuitem");
 
     Ext.each(items, function(item) {

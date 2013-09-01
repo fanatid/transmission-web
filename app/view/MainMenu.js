@@ -10,11 +10,11 @@ Ext.define('TrWeb.view.MainMenu', {
         id: 'mainmenu-file',
         plain: true,
         items: [
-          { text: 'Open',        disabled: true },
-          { text: 'Open URL...', disabled: true },
+          { text: 'Open',        disabled: true, cls: 'open' },
+          { text: 'Open URL...', disabled: true, cls: 'open-url' },
           '-',
-          { text: 'Start All',   disabled: true },
-          { text: 'Stop All',    disabled: true }
+          { text: 'Start All',   disabled: true, cls: 'start-all' },
+          { text: 'Stop All',    disabled: true, cls: 'stop-all' }
         ]
       }
     },
@@ -25,10 +25,10 @@ Ext.define('TrWeb.view.MainMenu', {
         id: 'mainmenu-edit',
         plain: true,
         items: [
-          { text: 'Select All',   disabled: true },
-          { text: 'Deselect All', disabled: true },
+          { text: 'Select All',   disabled: true, cls: 'select-all' },
+          { text: 'Deselect All', disabled: true, cls: 'deselect-all' },
           '-',
-          { text: 'Preferences',  disabled: true }
+          { text: 'Preferences',  disabled: true, cls: 'preferences' }
         ]
       }
     },
@@ -66,8 +66,8 @@ Ext.define('TrWeb.view.MainMenu', {
         id: 'mainmenu-help',
         plain: true,
         items: [
-          { text: 'Statistics', disabled: true },
-          { text: 'About',      disabled: true }
+          { text: 'Statistics', disabled: true, cls: 'statistics' },
+          { text: 'About',      disabled: true, cls: 'about' }
         ]
       }
     }

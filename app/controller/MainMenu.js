@@ -46,15 +46,44 @@ Ext.define('TrWeb.controller.MainMenu', {
 
   init: function() {
     this.control({
+      '#mainmenu-file > [text="Open"]':         { click: this.onFileOpenClick },
+      '#mainmenu-file > [text="Open URL..."]':  { click: this.onFileOpenUrlClick },
+      '#mainmenu-file > [text="Start All"]':    { click: this.onFileStartAllClick },
+      '#mainmenu-file > [text="Stop All"]':     { click: this.onFileStopAllClick },
+
       '#mainmenu-edit > [text="Select All"]':   { click: this.onEditSelectAllClick },
       '#mainmenu-edit > [text="Deselect All"]': { click: this.onEditDeselectAllClick },
+      '#mainmenu-edit > [text="Preferences"]':  { click: this.onEditPreferencesClick },
 
       '#mainmenu-torrent > [text="Start"]':     { click: this.onTorrentStartClick },
       '#mainmenu-torrent > [text="Start Now"]': { click: this.onTorrentStartNowClick },
-      '#mainmenu-torrent > [text="Pause"]':     { click: this.onTorrentPauseClick }
+      '#mainmenu-torrent > [text="Pause"]':     { click: this.onTorrentPauseClick },
+
+      '#mainmenu-help > [text="Statistics"]':   { click: this.onHelpStatisticsClick },
+      '#mainmenu-help > [text="About"]':        { click: this.onHelpAboutClick }
     });
   },
 
+  // file menu
+  onFileOpenClick: function() {
+    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
+  },
+
+  onFileOpenUrlClick: function() {
+    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
+  },
+
+  onFileStartAllClick: function() {
+    this.application.remote.torrentStart(
+      this.application.getController('Torrents').getTorrentsIds);
+  },
+
+  onFileStopAllClick: function() {
+    this.application.remote.torrentStop(
+      this.application.getController('Torrents').getTorrentsIds);
+  },
+
+  // edit menu
   onEditSelectAllClick: function() {
     this.application.torrentgrid.getSelectionModel().selectAll();
   },
@@ -63,19 +92,59 @@ Ext.define('TrWeb.controller.MainMenu', {
     this.application.torrentgrid.getSelectionModel().deselectAll();
   },
 
+  onEditPreferencesClick: function() {
+    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
+  },
+
+  // torrent menu
   onTorrentStartClick: function() {
     this.application.remote.torrentStart(
-      this.application.getController('Torrents').selectedTorrentsIds);
+      this.application.getController('Torrents').getSelectedTorrentsIds);
   },
 
   onTorrentStartNowClick: function() {
     this.application.remote.torrentStartNow(
-      this.application.getController('Torrents').selectedTorrentsIds);
+      this.application.getController('Torrents').getSelectedTorrentsIds);
   },
 
   onTorrentPauseClick: function() {
     this.application.remote.torrentStop(
-      this.application.getController('Torrents').selectedTorrentsIds);
+      this.application.getController('Torrents').getSelectedTorrentsIds);
+  },
+
+  // view menu
+
+  // help menu
+  onHelpStatisticsClick: function() {
+    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
+  },
+
+  onHelpAboutClick: function() {
+    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
+  },
+
+  fileMenuSetActive: function(records) {
+    var startAll = Ext.ComponentQuery.query('#mainmenu-file > menuitem[text="Start All"]')[0];
+    var stopAll  = Ext.ComponentQuery.query('#mainmenu-file > menuitem[text="Stop All"]')[0];
+
+    if (records.length == 0) {
+      Ext.each([startAll, stopAll], function(item) { item.disable(); });
+      return;
+    }
+
+    var active = 0, stopped = 0;
+    Ext.each(records, function(record) {
+      if (record.isActive())
+        ++active;
+      else
+        ++stopped;
+    });
+
+    Ext.each([startAll, stopAll], function(item) { item.enable(); });
+    if (active > 0 && stopped == 0)
+      startAll.disable();
+    if (active == 0 && stopped > 0)
+      stopAll.disable();
   },
 
   torrentMenuSetActive: function(records) {

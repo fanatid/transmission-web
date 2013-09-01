@@ -20,18 +20,6 @@ Ext.define('TrWeb.controller.Torrents', {
       return args.application;
     });
 
-    me.__defineGetter__('selectedTorrents', function() {
-      return me.application.torrentgrid.getSelectionModel().getSelection();
-    })
-
-    me.__defineGetter__('selectedTorrentsIds', function() {
-      var ids = []
-      Ext.each(me.selectedTorrents, function(record) {
-        ids.push(record.get('id'));
-      });
-      return ids;
-    });
-
     args.application.on('start',  me.onApplicationStart,  me);
     args.application.on('stop',   me.onApplicationStop,   me);
     args.application.on('update', me.onApplicationUpdate, me);
@@ -92,7 +80,24 @@ Ext.define('TrWeb.controller.Torrents', {
 
       store.sort();
 
-      me.application.getController('MainMenu').torrentMenuSetActive(this.selectedTorrents);
+      me.application.getController('MainMenu').fileMenuSetActive(store.data.items);
+      me.application.getController('MainMenu').torrentMenuSetActive(me.getSelectedTorrents());
     }, me);
+  },
+
+  getTorrentsIds: function() {
+    return Ext.Array.map(this.getStore('Torrents').data.items, function(torrent) {
+      return torrent.getId();
+    });
+  },
+
+  getSelectedTorrents: function() {
+    return this.application.torrentgrid.getSelectionModel().getSelection();
+  },
+
+  getSelectedTorrentsIds: function() {
+    return Ext.Array.map(this.getSelectedTorrents(), function(torrent) {
+      return torrent.getId();
+    });
   }
 });

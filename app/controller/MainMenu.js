@@ -120,7 +120,7 @@ Ext.define('TrWeb.controller.MainMenu', {
   },
 
   onHelpAboutClick: function() {
-    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
+    window.open('https://github.com/fanatid/transmission-web');
   },
 
   fileMenuSetActive: function(records) {

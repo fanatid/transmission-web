@@ -12,6 +12,8 @@ Ext.application({
 
   requires: [
     'Ext.container.Viewport',
+    'Ext.form.Label',
+    'Ext.toolbar.TextItem',
     'Ext.window.MessageBox',
     'Ext.util.Point',
     'TrWeb.Remote',
@@ -20,6 +22,7 @@ Ext.application({
 
   controllers: [
     'MainMenu',
+    'Stats',
     'Torrents',
     'TorrentDetails'
   ],
@@ -47,6 +50,7 @@ Ext.application({
     me.mainmenu       = Ext.widget('mainmenu');
     me.torrentgrid    = Ext.widget('torrentgrid', { flex: 5 });
     me.torrentdetails = Ext.widget('torrentdetails', { flex: 2 });
+    me.statsbar       = Ext.widget('statsbar');
 
     Ext.create('Ext.container.Viewport', {
       layout: {
@@ -56,12 +60,13 @@ Ext.application({
       items: [
         me.mainmenu,
         me.torrentgrid,
-        me.torrentdetails
+        me.torrentdetails,
+        me.statsbar
       ]
     });
 
-    me.addListener('stop',  me.onStop,  me);
-    me.addListener('start', me.onStart, me);
+    me.addListener('start',  me.onStart,  me);
+    me.addListener('stop',   me.onStop,   me);
     me.fireEvent('start');
   },
 

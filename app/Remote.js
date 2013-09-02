@@ -85,6 +85,15 @@ Ext.define('TrWeb.Remote', {
     });
   },
 
+  // 4.2 Session Statistics
+  sessionStats: function(callback, context) {
+    var data = { method: 'session-stats' };
+    this.sendRequest(data, function(response) {
+      var args = JSON.parse(response.responseText)['arguments'];
+      callback.call(context, args);
+    });
+  },
+
   // 4.7 Free Space
   freeSpace: function(path, callback, context) {
     var data = {

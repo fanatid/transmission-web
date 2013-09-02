@@ -30,6 +30,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "TrWeb.view.details.FilesTab": [],
   "Ext.ux.grid.menu.ListMenu": [],
   "Ext.ux.GMapPanel": [],
+  "TrWeb.view.stats.Toolbar": [],
   "TrWeb.Remote": [],
   "Ext.ux.form.MultiSelect": [
     "Ext.ux.Multiselect"
@@ -47,6 +48,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "TrWeb.Utils": [],
   "Ext.ux.ajax.SimXhr": [],
   "Ext.ux.event.RecorderManager": [],
+  "TrWeb.controller.Stats": [],
   "Ext.ux.ProgressBarPager": [],
   "Ext.ux.CellDragDrop": [],
   "Ext.ux.statusbar.StatusBar": [
@@ -123,6 +125,9 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.GMapPanel": [
     "widget.gmappanel"
   ],
+  "TrWeb.view.stats.Toolbar": [
+    "widget.statsbar"
+  ],
   "TrWeb.Remote": [],
   "Ext.ux.form.MultiSelect": [
     "widget.multiselect",
@@ -153,6 +158,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.event.RecorderManager": [
     "widget.eventrecordermanager"
   ],
+  "TrWeb.controller.Stats": [],
   "Ext.ux.ProgressBarPager": [],
   "Ext.ux.CellDragDrop": [
     "plugin.celldragdrop"

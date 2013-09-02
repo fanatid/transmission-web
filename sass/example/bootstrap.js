@@ -82,6 +82,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.form.ItemSelector": [
     "Ext.ux.ItemSelector"
   ],
+  "TrWeb.view.stats.Window": [],
   "Ext.ux.ajax.JsonSimlet": [],
   "TrWeb.view.details.TrackersTab": [],
   "Ext.ux.Spotlight": [],
@@ -218,6 +219,9 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.form.ItemSelector": [
     "widget.itemselector",
     "widget.itemselectorfield"
+  ],
+  "TrWeb.view.stats.Window": [
+    "widget.statswin"
   ],
   "Ext.ux.ajax.JsonSimlet": [
     "simlet.json"

@@ -51,6 +51,7 @@ Ext.application({
     me.torrentgrid    = Ext.widget('torrentgrid', { flex: 5 });
     me.torrentdetails = Ext.widget('torrentdetails', { flex: 2 });
     me.statsbar       = Ext.widget('statsbar');
+    me.statswin       = Ext.widget('statswin');
 
     Ext.create('Ext.container.Viewport', {
       layout: {

@@ -31,6 +31,30 @@
 
       speedToHuman: function(value) {
         return TrWeb.Utils.sizeToHuman(value) + '/s';
+      },
+
+      calcRatio: function(first, second, fixedSize) {
+        var ratio = first/second;
+        return (ratio === Infinity ? '∞' : ratio.toFixed(fixedSize ? fixedSize : 2))
+      },
+
+      secondsToHuman: function(seconds) {
+        if (seconds < 61)
+          return seconds + ' seconds';
+
+        var minutes = Math.floor(seconds / 60);
+        if (minutes < 61)
+          return minutes + ' minutes, ' + (seconds % 60) + ' seconds';
+
+        var hours = Math.floor(minutes / 60);
+        if (hours < 24)
+          return hours + ' hours, ' + (minutes % 60) + ' minutes';
+
+        var days = Math.floor(hours / 24);
+        if (days < 30)
+          return days + ' days, ' + (hours % 24) + ' hours';
+
+        return days + ' days'
       }
     }
   });

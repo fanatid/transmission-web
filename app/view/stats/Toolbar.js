@@ -23,12 +23,74 @@ Ext.define('TrWeb.view.stats.Toolbar', {
           group: 'statsToolbarInfoType'
         },
         items: [
-          { xtype: 'menucheckitem', text: 'Total Ratio',      cls: 'total-ratio' },
+          { xtype: 'menucheckitem', text: 'Total Ratio',      cls: 'total-ratio', checked: true },
           { xtype: 'menucheckitem', text: 'Session Ratio',    cls: 'session-ratio' },
           { xtype: 'menucheckitem', text: 'Total Transfer',   cls: 'total-transfer' },
           { xtype: 'menucheckitem', text: 'Session Transfer', cls: 'session-transfer' }
         ]
       }
     }
-  ]
+  ],
+
+  constructor: function(args) {
+    var me = this;
+
+    var _stats;
+    me.__defineSetter__('stats', function(stats) {
+      _stats = stats;
+    })
+    me.__defineGetter__('stats', function() {
+      return _stats;
+    });
+
+    me.callParent(arguments);
+
+    me.on('update', me.onUpdate, me);
+    me.on('clear',  me.onClear);
+
+    Ext.each(me.query('button[cls~=info-type] menucheckitem'), function(item) {
+      item.on('checkchange', me.updateInfoTypeLabel, me);
+    });
+  },
+
+  onUpdate: function(stats) {
+    this.stats = stats;
+    this.updateSpeedLabels();
+    this.updateInfoTypeLabel();
+  },
+
+  onClear: function() {
+    this.fireEventArgs('update', [undefined]);
+  },
+
+  updateSpeedLabels: function() {
+    if (!this.stats) {
+      this.down('label[cls~=down-speed]').setText('');
+      this.down('label[cls~=up-speed]').setText('');
+    } else {
+      this.down('label[cls~=down-speed]').setText(TrWeb.Utils.speedToHuman(this.stats.downloadSpeed) + ' ▼');
+      this.down('label[cls~=up-speed]').setText(TrWeb.Utils.speedToHuman(this.stats.uploadSpeed) + ' ▲');
+    }
+  },
+
+  updateInfoTypeLabel: function() {
+    if (!this.stats) {
+      this.down('button[cls~=info-type]').setText('');
+      return;
+    }
+    var data, st, ratio, text;
+    data = this.down('button[cls~=info-type] menucheckitem[checked=true]').text;
+    if (data)
+      st = /total/i.test(data) ? this.stats['cumulative-stats'] : this.stats['current-stats'];
+    if (st) {
+      if (/ratio/i.test(data)) {
+        ratio = st.uploadedBytes/st.downloadedBytes;
+        text = 'Ratio: ' + (ratio == Infinity ? '∞' : ratio.toFixed(2));
+      } else {
+        text = 'Down: ' + TrWeb.Utils.sizeToHuman(st.downloadedBytes) + ', Up: ' + TrWeb.Utils.sizeToHuman(st.uploadedBytes);
+      }
+    }
+    if (text)
+      this.down('button[cls~=info-type]').setText(text);
+  }
 });

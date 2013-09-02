@@ -46,21 +46,22 @@ Ext.define('TrWeb.controller.MainMenu', {
 
   init: function() {
     this.control({
-      '#mainmenu-file > [text="Open"]':         { click: this.onFileOpenClick },
-      '#mainmenu-file > [text="Open URL..."]':  { click: this.onFileOpenUrlClick },
-      '#mainmenu-file > [text="Start All"]':    { click: this.onFileStartAllClick },
-      '#mainmenu-file > [text="Stop All"]':     { click: this.onFileStopAllClick },
+      '#mainmenu-file > [text="Open"]':                 { click: this.onFileOpenClick },
+      '#mainmenu-file > [text="Open URL..."]':          { click: this.onFileOpenUrlClick },
+      '#mainmenu-file > [text="Start All"]':            { click: this.onFileStartAllClick },
+      '#mainmenu-file > [text="Stop All"]':             { click: this.onFileStopAllClick },
 
-      '#mainmenu-edit > [text="Select All"]':   { click: this.onEditSelectAllClick },
-      '#mainmenu-edit > [text="Deselect All"]': { click: this.onEditDeselectAllClick },
-      '#mainmenu-edit > [text="Preferences"]':  { click: this.onEditPreferencesClick },
+      '#mainmenu-edit > [text="Select All"]':           { click: this.onEditSelectAllClick },
+      '#mainmenu-edit > [text="Deselect All"]':         { click: this.onEditDeselectAllClick },
+      '#mainmenu-edit > [text="Preferences"]':          { click: this.onEditPreferencesClick },
 
-      '#mainmenu-torrent > [text="Start"]':     { click: this.onTorrentStartClick },
-      '#mainmenu-torrent > [text="Start Now"]': { click: this.onTorrentStartNowClick },
-      '#mainmenu-torrent > [text="Pause"]':     { click: this.onTorrentPauseClick },
+      '#mainmenu-torrent > [text="Start"]':             { click: this.onTorrentStartClick },
+      '#mainmenu-torrent > [text="Start Now"]':         { click: this.onTorrentStartNowClick },
+      '#mainmenu-torrent > [text="Pause"]':             { click: this.onTorrentPauseClick },
+      '#mainmenu-torrent > [text="Verify Local Data"]': { click: this.onTorrentVerifyLocalDataClick },
 
-      '#mainmenu-help > [text="Statistics"]':   { click: this.onHelpStatisticsClick },
-      '#mainmenu-help > [text="About"]':        { click: this.onHelpAboutClick }
+      '#mainmenu-help > [text="Statistics"]':           { click: this.onHelpStatisticsClick },
+      '#mainmenu-help > [text="About"]':                { click: this.onHelpAboutClick }
     });
   },
 
@@ -99,17 +100,22 @@ Ext.define('TrWeb.controller.MainMenu', {
   // torrent menu
   onTorrentStartClick: function() {
     this.application.remote.torrentStart(
-      this.application.getController('Torrents').getSelectedTorrentsIds);
+      this.application.getController('Torrents').getSelectedTorrentsIds());
   },
 
   onTorrentStartNowClick: function() {
     this.application.remote.torrentStartNow(
-      this.application.getController('Torrents').getSelectedTorrentsIds);
+      this.application.getController('Torrents').getSelectedTorrentsIds());
   },
 
   onTorrentPauseClick: function() {
     this.application.remote.torrentStop(
-      this.application.getController('Torrents').getSelectedTorrentsIds);
+      this.application.getController('Torrents').getSelectedTorrentsIds());
+  },
+
+  onTorrentVerifyLocalDataClick: function() {
+    this.application.remote.torrentVerify(
+      this.application.getController('Torrents').getSelectedTorrentsIds());
   },
 
   // view menu

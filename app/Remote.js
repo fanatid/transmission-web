@@ -70,6 +70,10 @@ Ext.define('TrWeb.Remote', {
     this.actionRequests('torrent-stop', ids, {}, callback, context);
   },
 
+  torrentVerify: function(ids, callback, context) {
+    this.actionRequests('torrent-verify', ids, {}, callback, context);
+  },
+
   // 3.3 Torrent Accessors
   torrentGet: function(ids, fields, callback, context) {
     var data = {

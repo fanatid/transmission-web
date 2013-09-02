@@ -45,7 +45,7 @@ Ext.define('TrWeb.view.stats.Toolbar', {
 
     me.callParent(arguments);
 
-    me.on('update', me.onUpdate, me);
+    me.on('update', me.onUpdate);
     me.on('clear',  me.onClear);
 
     Ext.each(me.query('button[cls~=info-type] menucheckitem'), function(item) {
@@ -53,14 +53,14 @@ Ext.define('TrWeb.view.stats.Toolbar', {
     });
   },
 
-  onUpdate: function(stats) {
-    this.stats = stats;
-    this.updateSpeedLabels();
-    this.updateInfoTypeLabel();
+  onUpdate: function(me, stats) {
+    me.stats = stats;
+    me.updateSpeedLabels();
+    me.updateInfoTypeLabel();
   },
 
-  onClear: function() {
-    this.fireEventArgs('update', [undefined]);
+  onClear: function(me) {
+    me.fireEventArgs('update', [me, undefined]);
   },
 
   updateSpeedLabels: function() {
@@ -84,8 +84,7 @@ Ext.define('TrWeb.view.stats.Toolbar', {
       st = /total/i.test(data) ? this.stats['cumulative-stats'] : this.stats['current-stats'];
     if (st) {
       if (/ratio/i.test(data)) {
-        ratio = st.uploadedBytes/st.downloadedBytes;
-        text = 'Ratio: ' + (ratio == Infinity ? '∞' : ratio.toFixed(2));
+        text = 'Ratio: ' + TrWeb.Utils.calcRatio(st.uploadedBytes, st.downloadedBytes)
       } else {
         text = 'Down: ' + TrWeb.Utils.sizeToHuman(st.downloadedBytes) + ', Up: ' + TrWeb.Utils.sizeToHuman(st.uploadedBytes);
       }

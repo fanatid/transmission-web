@@ -55,12 +55,15 @@ Ext.define('TrWeb.controller.MainMenu', {
       '#mainmenu-edit > [text="Deselect All"]':         { click: this.onEditDeselectAllClick },
       '#mainmenu-edit > [text="Preferences"]':          { click: this.onEditPreferencesClick },
 
+      '#mainmenu-torrent > [text="Properties"]':        { click: this.onTorrentPropertiesClick },
       '#mainmenu-torrent > [text="Start"]':             { click: this.onTorrentStartClick },
       '#mainmenu-torrent > [text="Start Now"]':         { click: this.onTorrentStartNowClick },
       '#mainmenu-torrent > [text="Ask Tracker for More Peers"]': { click: this.onTorrentAskTrackerClick },
       '#mainmenu-torrent > [text="Pause"]':             { click: this.onTorrentPauseClick },
       '#mainmenu-torrent > [text="Set Location"]':      { click: this.onTorrentSetLocationClick },
       '#mainmenu-torrent > [text="Verify Local Data"]': { click: this.onTorrentVerifyLocalDataClick },
+      '#mainmenu-torrent > [text="Remove"]':             { click: this.onTorrentRemoveClick },
+      '#mainmenu-torrent > [text="Delete Files and Remove"]': { click: this.onTorrentRemoveWithFilesClick },
 
       '#mainmenu-help > [text="Statistics"]':           { click: this.onHelpStatisticsClick },
       '#mainmenu-help > [text="About"]':                { click: this.onHelpAboutClick }
@@ -100,6 +103,10 @@ Ext.define('TrWeb.controller.MainMenu', {
   },
 
   // torrent menu
+  onTorrentPropertiesClick: function() {
+    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
+  },
+
   onTorrentStartClick: function() {
     this.application.remote.torrentStart(
       this.application.getController('Torrents').getSelectedTorrentsIds());
@@ -121,12 +128,23 @@ Ext.define('TrWeb.controller.MainMenu', {
   },
 
   onTorrentSetLocationClick: function() {
-    this.application.torrentsetloc.show();
+    Ext.widget('torrentsetloc', {
+      application: this.application,
+      torrents: this.application.getController('Torrents').getSelectedTorrents()
+    }).show();
   },
 
   onTorrentVerifyLocalDataClick: function() {
     this.application.remote.torrentVerify(
       this.application.getController('Torrents').getSelectedTorrentsIds());
+  },
+
+  onTorrentRemoveClick: function() {
+    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
+  },
+
+  onTorrentRemoveWithFilesClick: function() {
+    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
   },
 
   // view menu

@@ -51,7 +51,6 @@ Ext.application({
     me.remote         = Ext.create('TrWeb.Remote', { application: me });
     me.mainmenu       = Ext.widget('mainmenu');
     me.torrentgrid    = Ext.widget('torrentgrid', { flex: 5 });
-    me.torrentsetloc  = Ext.widget('torrentsetloc', { application: me });
     me.torrentdetails = Ext.widget('torrentdetails', { flex: 2 });
     me.statsbar       = Ext.widget('statsbar');
     me.statswin       = Ext.widget('statswin');

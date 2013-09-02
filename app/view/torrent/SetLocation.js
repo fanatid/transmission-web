@@ -5,7 +5,6 @@ Ext.define('TrWeb.view.torrent.SetLocation', {
   title: 'Set Location',
   titleAlign: 'center',
   bodyStyle: 'padding-left: 10px',
-  closeAction: 'hide',
   closable: true,
   height: 180,
   width: 400,
@@ -48,35 +47,34 @@ Ext.define('TrWeb.view.torrent.SetLocation', {
     this.__defineGetter__('application', function() {
       return args.application;
     });
-    var _torrent;
-    this.__defineSetter__('torrent', function(torrent) {
-      _torrent = torrent;
-    });
-    this.__defineGetter__('torrent', function() {
-      return _torrent;
+    this.__defineGetter__('torrents', function() {
+      return args.torrents;
     });
 
     me.callParent(arguments);
-
-    me.on('show', me.updateWindow);
   },
 
-  updateWindow: function(me) {
-    var selected = me.application.getController('Torrents').getSelectedTorrents();
-    if (selected.length != 1) {
-      me.hide();
+  initComponent: function() {
+    var me = this;
+    me.callParent(arguments);
+
+    if (me.torrents.length == 0) {
+      me.close();
       return;
     }
 
-    me.torrent = selected[0];
-    me.down('textfield[name=path-now]').setRawValue(me.torrent.get('downloadDir'));
-    me.down('textfield[name=path-new]').setRawValue(me.torrent.get('downloadDir'));
-    me.down('radiofield[cls~=moved]').setValue(true);
+    if (me.torrents.length == 1) {
+      me.down('textfield[name=path-now]').setRawValue(me.torrents[0].get('downloadDir'));
+      me.down('textfield[name=path-new]').setRawValue(me.torrents[0].get('downloadDir'));
+    } else {
+      // need from current preferences
+      me.down('textfield[name=path-new]').setRawValue('');
+    }
   },
 
   moveData: function(me) {
     me.application.remote.torrentSetLocation(
-      [me.torrent.getId()],
+      Ext.map(me.torrents, function(torrent) { return torrent.getId(); }),
       me.down('textfield[name=path-new]').getRawValue(),
       me.down('radiofield[cls~=moved]').getValue());
     me.hide();

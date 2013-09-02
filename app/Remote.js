@@ -90,6 +90,11 @@ Ext.define('TrWeb.Remote', {
     });
   },
 
+  // 3.4  Adding a Torrent
+  torrentAdd: function() {
+
+  },
+
   // 3.6 Moving a Torrent
   torrentSetLocation: function(ids, location, move) {
     this.sendRequest({

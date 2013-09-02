@@ -57,6 +57,7 @@ Ext.define('TrWeb.controller.MainMenu', {
 
       '#mainmenu-torrent > [text="Start"]':             { click: this.onTorrentStartClick },
       '#mainmenu-torrent > [text="Start Now"]':         { click: this.onTorrentStartNowClick },
+      '#mainmenu-torrent > [text="Ask Tracker for More Peers"]': { click: this.onTorrentAskTrackerClick },
       '#mainmenu-torrent > [text="Pause"]':             { click: this.onTorrentPauseClick },
       '#mainmenu-torrent > [text="Set Location"]':      { click: this.onTorrentSetLocationClick },
       '#mainmenu-torrent > [text="Verify Local Data"]': { click: this.onTorrentVerifyLocalDataClick },
@@ -106,6 +107,11 @@ Ext.define('TrWeb.controller.MainMenu', {
 
   onTorrentStartNowClick: function() {
     this.application.remote.torrentStartNow(
+      this.application.getController('Torrents').getSelectedTorrentsIds());
+  },
+
+  onTorrentAskTrackerClick: function() {
+    this.application.remote.torrentReannounce(
       this.application.getController('Torrents').getSelectedTorrentsIds());
   },
 
@@ -176,6 +182,7 @@ Ext.define('TrWeb.controller.MainMenu', {
         Ext.ComponentQuery.query('#mainmenu-torrent > menuitem[text="Start Now"]')[0].disable();
       }
       if (active == 0 && stopped > 0) {
+        Ext.ComponentQuery.query('#mainmenu-torrent > menuitem[text="Ask Tracker for More Peers"]')[0].disable();
         Ext.ComponentQuery.query('#mainmenu-torrent > menuitem[text="Pause"]')[0].disable();
       }
 

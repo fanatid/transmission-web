@@ -71,6 +71,10 @@ Ext.define('TrWeb.Remote', {
     this.actionRequests('torrent-verify', ids);
   },
 
+  torrentReannounce: function(ids) {
+    this.actionRequests('torrent-reannounce', ids);
+  },
+
   // 3.3 Torrent Accessors
   torrentGet: function(ids, fields, callback, context) {
     var data = {

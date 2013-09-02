@@ -39,17 +39,18 @@ Ext.define('TrWeb.view.MainMenu', {
         id: 'mainmenu-torrent',
         plain: true,
         items: [
-          { text: 'Properties',              disabled: true, cls: 'properties' },
+          { text: 'Properties',                 disabled: true, cls: 'properties' },
           '-',
-          { text: 'Start',                   disabled: true, cls: 'start' },
-          { text: 'Start Now',               disabled: true, cls: 'start-now' },
-          { text: 'Pause',                   disabled: true, cls: 'pause' },
+          { text: 'Start',                      disabled: true, cls: 'start' },
+          { text: 'Start Now',                  disabled: true, cls: 'start-now' },
+          { text: 'Ask Tracker for More Peers', disabled: true, cls: 'ask-tracker' },
+          { text: 'Pause',                      disabled: true, cls: 'pause' },
           '-',
-          { text: 'Set Location',            disabled: true, cls: 'set-location' },
-          { text: 'Verify Local Data',       disabled: true, cls: 'verify-local-data' },
+          { text: 'Set Location',               disabled: true, cls: 'set-location' },
+          { text: 'Verify Local Data',          disabled: true, cls: 'verify-local-data' },
           '-',
-          { text: 'Remove',                  disabled: true, cls: 'remove' },
-          { text: 'Delete Files and Remove', disabled: true, cls: 'delete-files-and-remove' }
+          { text: 'Remove',                     disabled: true, cls: 'remove' },
+          { text: 'Delete Files and Remove',    disabled: true, cls: 'delete-files-and-remove' }
         ]
       }
     },

@@ -58,6 +58,7 @@ Ext.define('TrWeb.controller.MainMenu', {
       '#mainmenu-torrent > [text="Start"]':             { click: this.onTorrentStartClick },
       '#mainmenu-torrent > [text="Start Now"]':         { click: this.onTorrentStartNowClick },
       '#mainmenu-torrent > [text="Pause"]':             { click: this.onTorrentPauseClick },
+      '#mainmenu-torrent > [text="Set Location"]':      { click: this.onTorrentSetLocationClick },
       '#mainmenu-torrent > [text="Verify Local Data"]': { click: this.onTorrentVerifyLocalDataClick },
 
       '#mainmenu-help > [text="Statistics"]':           { click: this.onHelpStatisticsClick },
@@ -111,6 +112,10 @@ Ext.define('TrWeb.controller.MainMenu', {
   onTorrentPauseClick: function() {
     this.application.remote.torrentStop(
       this.application.getController('Torrents').getSelectedTorrentsIds());
+  },
+
+  onTorrentSetLocationClick: function() {
+    this.application.torrentsetloc.show();
   },
 
   onTorrentVerifyLocalDataClick: function() {

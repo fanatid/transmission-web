@@ -28,7 +28,7 @@
     return d.toString() + ' days and ' + h.toString() + ' hours';
   }
 
-  Ext.define('TrWeb.view.TorrentGrid', {
+  Ext.define('TrWeb.view.torrent.Grid', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.torrentgrid',
 

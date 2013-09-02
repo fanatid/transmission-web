@@ -24,7 +24,8 @@
       { name: 'rateDownload', type: 'int' },
       { name: 'rateUpload',   type: 'int' },
       { name: 'eta',          type: 'int', sortType: sortETA },
-      { name: 'uploadedEver', type: 'int' }
+      { name: 'uploadedEver', type: 'int' },
+      { name: 'downloadDir',  type: 'string' }
     ],
 
     isActive: function() {

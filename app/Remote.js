@@ -48,30 +48,27 @@ Ext.define('TrWeb.Remote', {
   },
 
   // 3.1 Torrent Action Requests
-  actionRequests: function(method, ids, args, callback, context) {
-    if (!args) args = {};
-    args['ids'] = ids;
-    var data = {
+  actionRequests: function(method, ids) {
+    this.sendRequest({
       method: method,
-      arguments: args
-    };
-    this.sendRequest(data, callback, context);
+      arguments: { ids: ids }
+    });
   },
 
-  torrentStart: function(ids, callback, context) {
-    this.actionRequests('torrent-start', ids, {}, callback, context);
+  torrentStart: function(ids) {
+    this.actionRequests('torrent-start', ids);
   },
 
-  torrentStartNow: function(ids, callback, context) {
-    this.actionRequests('torrent-start-now', ids, {}, callback, context);
+  torrentStartNow: function(ids) {
+    this.actionRequests('torrent-start-now', ids);
   },
 
-  torrentStop: function(ids, callback, context) {
-    this.actionRequests('torrent-stop', ids, {}, callback, context);
+  torrentStop: function(ids) {
+    this.actionRequests('torrent-stop', ids);
   },
 
-  torrentVerify: function(ids, callback, context) {
-    this.actionRequests('torrent-verify', ids, {}, callback, context);
+  torrentVerify: function(ids) {
+    this.actionRequests('torrent-verify', ids);
   },
 
   // 3.3 Torrent Accessors
@@ -89,10 +86,21 @@ Ext.define('TrWeb.Remote', {
     });
   },
 
+  // 3.6 Moving a Torrent
+  torrentSetLocation: function(ids, location, move) {
+    this.sendRequest({
+      method: 'torrent-set-location',
+      arguments: {
+        ids: ids,
+        location: location,
+        move: move
+      }
+    });
+  },
+
   // 4.2 Session Statistics
   sessionStats: function(callback, context) {
-    var data = { method: 'session-stats' };
-    this.sendRequest(data, function(response) {
+    this.sendRequest({ method: 'session-stats' }, function(response) {
       var args = JSON.parse(response.responseText)['arguments'];
       callback.call(context, args);
     });

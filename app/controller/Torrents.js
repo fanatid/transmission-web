@@ -10,7 +10,8 @@ Ext.define('TrWeb.controller.Torrents', {
   ],
 
   views: [
-    'TorrentGrid'
+    'torrent.Grid',
+    'torrent.SetLocation'
   ],
 
   constructor: function(args) {
@@ -49,7 +50,8 @@ Ext.define('TrWeb.controller.Torrents', {
       'rateDownload',
       'rateUpload',
       'eta',
-      'uploadedEver'
+      'uploadedEver',
+      'downloadDir'
     ];
 
     me.application.remote.torrentGet(undefined, fields, function(torrents, remove) {

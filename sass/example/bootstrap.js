@@ -43,9 +43,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.statusbar.ValidationStatus": [],
   "TrWeb.view.MainMenu": [],
   "Ext.ux.layout.Center": [],
+  "TrWeb.view.torrent.Grid": [],
   "Ext.ux.PreviewPlugin": [],
   "Ext.ux.DataView.Animated": [],
   "TrWeb.Utils": [],
+  "TrWeb.view.torrent.SetLocation": [],
   "Ext.ux.ajax.SimXhr": [],
   "Ext.ux.event.RecorderManager": [],
   "TrWeb.controller.Stats": [],
@@ -58,7 +60,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.SlidingPager": [],
   "Ext.ux.TabReorderer": [],
   "Ext.ux.grid.filter.NumericFilter": [],
-  "TrWeb.view.TorrentGrid": [],
   "Ext.ux.grid.menu.RangeMenu": [],
   "Ext.ux.RowExpander": [],
   "Ext.ux.event.Recorder": [],
@@ -150,11 +151,17 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.layout.Center": [
     "layout.ux.center"
   ],
+  "TrWeb.view.torrent.Grid": [
+    "widget.torrentgrid"
+  ],
   "Ext.ux.PreviewPlugin": [
     "plugin.preview"
   ],
   "Ext.ux.DataView.Animated": [],
   "TrWeb.Utils": [],
+  "TrWeb.view.torrent.SetLocation": [
+    "widget.torrentsetloc"
+  ],
   "Ext.ux.ajax.SimXhr": [],
   "Ext.ux.event.RecorderManager": [
     "widget.eventrecordermanager"
@@ -174,9 +181,6 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.TabReorderer": [],
   "Ext.ux.grid.filter.NumericFilter": [
     "gridfilter.numeric"
-  ],
-  "TrWeb.view.TorrentGrid": [
-    "widget.torrentgrid"
   ],
   "Ext.ux.grid.menu.RangeMenu": [],
   "Ext.ux.RowExpander": [],

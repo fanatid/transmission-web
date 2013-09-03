@@ -12,6 +12,7 @@ Ext.application({
 
   requires: [
     'Ext.container.Viewport',
+    'Ext.form.field.File',
     'Ext.form.field.Radio',
     'Ext.form.Label',
     'Ext.form.RadioGroup',

@@ -67,8 +67,7 @@ Ext.define('TrWeb.view.torrent.SetLocation', {
       me.down('textfield[name=path-now]').setRawValue(me.torrents[0].get('downloadDir'));
       me.down('textfield[name=path-new]').setRawValue(me.torrents[0].get('downloadDir'));
     } else {
-      // need from current preferences
-      me.down('textfield[name=path-new]').setRawValue('');
+      me.down('textfield[name=path-new]').setRawValue(me.application.getController('Preferences').get('download-dir'));
     }
   },
 

@@ -101,6 +101,8 @@ Ext.define('TrWeb.Remote', {
     };
     if (options['filename'])
       data.arguments['filename'] = options['filename'];
+    if (options['metainfo'])
+      data.arguments['metainfo'] = options['metainfo'];
 
     this.sendRequest(data, function(response) {
       callback.call(context, JSON.parse(response.responseText));

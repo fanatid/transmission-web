@@ -30,6 +30,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "TrWeb.view.details.FilesTab": [],
   "Ext.ux.grid.menu.ListMenu": [],
   "Ext.ux.GMapPanel": [],
+  "TrWeb.view.torrent.OpenBase": [],
   "TrWeb.view.stats.Toolbar": [],
   "TrWeb.view.torrent.OpenUrl": [],
   "TrWeb.Remote": [],
@@ -62,6 +63,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.SlidingPager": [],
   "Ext.ux.TabReorderer": [],
   "Ext.ux.grid.filter.NumericFilter": [],
+  "TrWeb.view.torrent.Open": [],
   "Ext.ux.grid.menu.RangeMenu": [],
   "Ext.ux.RowExpander": [],
   "Ext.ux.event.Recorder": [],
@@ -129,6 +131,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.GMapPanel": [
     "widget.gmappanel"
   ],
+  "TrWeb.view.torrent.OpenBase": [],
   "TrWeb.view.stats.Toolbar": [
     "widget.statsbar"
   ],
@@ -187,6 +190,9 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.TabReorderer": [],
   "Ext.ux.grid.filter.NumericFilter": [
     "gridfilter.numeric"
+  ],
+  "TrWeb.view.torrent.Open": [
+    "widget.torrentopen"
   ],
   "Ext.ux.grid.menu.RangeMenu": [],
   "Ext.ux.RowExpander": [],

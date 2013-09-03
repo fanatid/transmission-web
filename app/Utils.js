@@ -8,6 +8,24 @@
 
   Ext.define('TrWeb.Utils', {
     statics: {
+      b64encode: function(decStr) {
+        var base64s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        var bits;
+        var dual;
+        var i = 0;
+        var encOut = "";
+        while(decStr.length >= i + 3){
+            bits = (decStr.charCodeAt(i++) & 0xff) <<16 | (decStr.charCodeAt(i++) & 0xff) <<8 | decStr.charCodeAt(i++) & 0xff;
+            encOut += base64s.charAt((bits & 0x00fc0000) >>18) + base64s.charAt((bits & 0x0003f000) >>12) + base64s.charAt((bits & 0x00000fc0) >> 6) + base64s.charAt((bits & 0x0000003f));
+        }
+        if(decStr.length -i > 0 && decStr.length -i < 3){
+            dual = Boolean(decStr.length -i -1);
+            bits = ((decStr.charCodeAt(i++) & 0xff) <<16) |    (dual ? (decStr.charCodeAt(i) & 0xff) <<8 : 0);
+            encOut += base64s.charAt((bits & 0x00fc0000) >>18) + base64s.charAt((bits & 0x0003f000) >>12) + (dual ? base64s.charAt((bits & 0x00000fc0) >>6) : '=') + '=';
+        }
+        return(encOut);
+      },
+
       booleanRenderer: function(value) {
         return (value ? '✓' : '✕')
       },

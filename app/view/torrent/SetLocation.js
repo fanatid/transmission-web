@@ -40,8 +40,8 @@ Ext.define('TrWeb.view.torrent.SetLocation', {
     var me = this;
 
     me.buttons = [
-      { text: 'Cancel', handler: function() { me.hide(); } },
-      { text: 'Apply', handler: function() { me.moveData(me); } }
+      { text: 'Cancel', handler: function() { me.close(); } },
+      { text: 'Apply', handler: function() { me.moveData(); } }
     ];
 
     this.__defineGetter__('application', function() {
@@ -72,7 +72,9 @@ Ext.define('TrWeb.view.torrent.SetLocation', {
     }
   },
 
-  moveData: function(me) {
+  moveData: function() {
+    var me = this;
+
     me.application.remote.torrentSetLocation(
       Ext.map(me.torrents, function(torrent) { return torrent.getId(); }),
       me.down('textfield[name=path-new]').getRawValue(),

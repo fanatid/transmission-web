@@ -31,6 +31,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.grid.menu.ListMenu": [],
   "Ext.ux.GMapPanel": [],
   "TrWeb.view.stats.Toolbar": [],
+  "TrWeb.view.torrent.OpenUrl": [],
   "TrWeb.Remote": [],
   "Ext.ux.form.MultiSelect": [
     "Ext.ux.Multiselect"
@@ -48,6 +49,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.DataView.Animated": [],
   "TrWeb.Utils": [],
   "TrWeb.view.torrent.SetLocation": [],
+  "TrWeb.controller.Preferences": [],
   "Ext.ux.ajax.SimXhr": [],
   "Ext.ux.event.RecorderManager": [],
   "TrWeb.controller.Stats": [],
@@ -130,6 +132,9 @@ Ext.ClassManager.addNameAliasMappings({
   "TrWeb.view.stats.Toolbar": [
     "widget.statsbar"
   ],
+  "TrWeb.view.torrent.OpenUrl": [
+    "widget.torrentopenurl"
+  ],
   "TrWeb.Remote": [],
   "Ext.ux.form.MultiSelect": [
     "widget.multiselect",
@@ -162,6 +167,7 @@ Ext.ClassManager.addNameAliasMappings({
   "TrWeb.view.torrent.SetLocation": [
     "widget.torrentsetloc"
   ],
+  "TrWeb.controller.Preferences": [],
   "Ext.ux.ajax.SimXhr": [],
   "Ext.ux.event.RecorderManager": [
     "widget.eventrecordermanager"

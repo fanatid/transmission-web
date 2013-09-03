@@ -24,6 +24,7 @@ Ext.application({
 
   controllers: [
     'MainMenu',
+    'Preferences',
     'Stats',
     'Torrents',
     'TorrentDetails'

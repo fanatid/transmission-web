@@ -11,6 +11,7 @@ Ext.define('TrWeb.controller.Torrents', {
 
   views: [
     'torrent.Grid',
+    'torrent.OpenUrl',
     'torrent.SetLocation'
   ],
 

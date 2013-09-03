@@ -91,8 +91,20 @@ Ext.define('TrWeb.Remote', {
   },
 
   // 3.4  Adding a Torrent
-  torrentAdd: function() {
+  torrentAdd: function(options, callback, context) {
+    var data = {
+      method: 'torrent-add',
+      arguments: {
+        'paused': options['paused'],
+        'download-dir': options['download-dir']
+      }
+    };
+    if (options['filename'])
+      data.arguments['filename'] = options['filename'];
 
+    this.sendRequest(data, function(response) {
+      callback.call(context, JSON.parse(response.responseText));
+    });
   },
 
   // 3.6 Moving a Torrent
@@ -107,11 +119,17 @@ Ext.define('TrWeb.Remote', {
     });
   },
 
+  // 4.1  Session Arguments
+  sessionGet: function(callback, context) {
+    this.sendRequest({ method: 'session-get' }, function(response) {
+      callback.call(context, JSON.parse(response.responseText)['arguments']);
+    });
+  },
+
   // 4.2 Session Statistics
   sessionStats: function(callback, context) {
     this.sendRequest({ method: 'session-stats' }, function(response) {
-      var args = JSON.parse(response.responseText)['arguments'];
-      callback.call(context, args);
+      callback.call(context, JSON.parse(response.responseText)['arguments']);
     });
   },
 

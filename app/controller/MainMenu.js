@@ -76,7 +76,7 @@ Ext.define('TrWeb.controller.MainMenu', {
   },
 
   onFileOpenUrlClick: function() {
-    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
+    Ext.widget('torrentopenurl', { application: this.application }).show();
   },
 
   onFileStartAllClick: function() {

@@ -4,6 +4,7 @@ Ext.define('TrWeb.view.details.DetailsPanel', {
 
   disabled: true,
   items: [
+    { xtype: 'statustab' },
     { xtype: 'filestab' },
     { xtype: 'trackerstab' },
     { xtype: 'peerstab' }

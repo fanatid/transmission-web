@@ -86,6 +86,8 @@ Ext.define('TrWeb.controller.Torrents', {
 
       me.application.getController('MainMenu').fileMenuSetActive(store.data.items);
       me.application.getController('MainMenu').torrentMenuSetActive(me.getSelectedTorrents());
+
+      me.application.torrentdetails.fireEventArgs('updatetorrent', [me.application.torrentdetails]);
     }, me);
   },
 

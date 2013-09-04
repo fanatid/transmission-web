@@ -68,6 +68,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.RowExpander": [],
   "Ext.ux.event.Recorder": [],
   "Ext.ux.event.Player": [],
+  "TrWeb.view.details.StatusTab": [],
   "Ext.ux.ajax.SimManager": [],
   "TrWeb.store.Peers": [],
   "Ext.ux.grid.filter.BooleanFilter": [],
@@ -198,6 +199,9 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.RowExpander": [],
   "Ext.ux.event.Recorder": [],
   "Ext.ux.event.Player": [],
+  "TrWeb.view.details.StatusTab": [
+    "widget.statustab"
+  ],
   "Ext.ux.ajax.SimManager": [],
   "TrWeb.store.Peers": [],
   "Ext.ux.grid.filter.BooleanFilter": [

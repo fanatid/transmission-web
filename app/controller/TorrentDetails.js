@@ -11,6 +11,7 @@ Ext.define('TrWeb.controller.TorrentDetails', {
 
   views: [
     'details.DetailsPanel',
+    'details.StatusTab',
     'details.FilesTab',
     'details.TrackersTab',
     'details.PeersTab'
@@ -25,7 +26,15 @@ Ext.define('TrWeb.controller.TorrentDetails', {
 
     var _torrent = null;
     me.__defineSetter__('torrent', function(torrent) {
+      var eventName;
+
+      if (torrent)
+        eventName = _torrent ? 'update' : 'start';
+      else
+        eventName = 'stop';
+
       _torrent = torrent;
+      me.fireEventArgs(eventName, [me]);
     });
     me.__defineGetter__('torrent', function() {
       return _torrent;
@@ -36,62 +45,61 @@ Ext.define('TrWeb.controller.TorrentDetails', {
     args.application.on('update', me.onApplicationUpdate, me);
 
     me.callParent(arguments);
+
+    me.on('start',         me.onStart);
+    me.on('stop',          me.onStop);
+    me.on('update',        me.onUpdate);
+    me.on('updatetorrent', me.onUpdateTorrent)
   },
 
   onLaunch: function(application) {
-    this.on('start',  this.onStart,  this);
-    this.on('stop',   this.onStop,   this);
-    this.on('update', this.onUpdate, this);
+    var me = this;
 
-    application.torrentgrid.on('selectionchange', this.onTorrentSelect, this);
+    application.torrentgrid.on('selectionchange', function(grid, selected) {
+      me.torrent = selected.length == 1 ? selected[0] : null;
+    });
 
-    application.torrentdetails.on('tabchange', this.onTabChange, this);
+    application.torrentdetails.on('tabchange', function(tabPanel, newCard, oldCard) {
+      oldCard.fireEventArgs('stop', [oldCard]);
+      me.fireEventArgs('update', [me]);
+    });
   },
 
   onApplicationStart: function() {
     if (this.torrent)
-      this.fireEvent('start')
+      this.fireEventArgs('start', [this]);
   },
 
-  onStart: function() {
-    this.application.torrentdetails.enable();
-    this.fireEvent('update');
+  onStart: function(me) {
+    me.application.torrentdetails.enable();
+    me.fireEventArgs('update', [me]);
+    me.fireEventArgs('updatetorrent', [me]);
   },
 
   onApplicationStop: function() {
     this.torrent = null;
-    this.fireEvent('stop');
+    this.fireEventArgs('stop', [this]);
   },
 
-  onStop: function() {
-    this.application.torrentdetails.disable();
-    Ext.each(Ext.ComponentQuery.query('torrentdetails panel'), function(tab) {
-      tab.fireEvent('stop');
+  onStop: function(me) {
+    me.application.torrentdetails.disable();
+    Ext.each(me.application.torrentdetails.query('panel'), function(tab) {
+      tab.fireEventArgs('stop', [tab]);
     });
   },
 
   onApplicationUpdate: function() {
     if (this.torrent)
-      this.fireEvent('update');
+      this.fireEventArgs('update', [this]);
   },
 
-  onUpdate: function() {
-    var activeTab = this.application.torrentdetails.getActiveTab();
-    activeTab.fireEventArgs('update', [ this.application.remote, this.torrent ]);
+  onUpdate: function(me) {
+    var activeTab = me.application.torrentdetails.getActiveTab();
+    activeTab.fireEventArgs('update', [ activeTab, me.torrent, me.application.remote ]);
   },
 
-  onTorrentSelect: function(grid, selected) {
-    if (selected.length == 1) {
-      this.torrent = selected[0];
-      this.fireEvent('start');
-    } else{
-      this.torrent = null;
-      this.fireEvent('stop');
-    }
-  },
-
-  onTabChange: function(tabPanel, newCard, oldCard, eOpts) {
-    this.fireEvent('update');
-    oldCard.fireEvent('stop');
+  onUpdateTorrent: function(me) {
+    var activeTab = me.application.torrentdetails.getActiveTab();
+    activeTab.fireEventArgs('updatetorrent', [ activeTab, me.torrent ]);
   }
 });

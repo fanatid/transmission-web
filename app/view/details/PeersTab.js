@@ -40,13 +40,11 @@
     initComponent: function() {
       this.callParent(arguments);
 
-      this.on('update', this.onUpdate, this);
-      this.on('stop',   this.onStop,   this);
+      this.on('update', this.onUpdate);
+      this.on('stop',   this.onStop);
     },
 
-    onUpdate: function(remote, torrent) {
-      var me = this;
-
+    onUpdate: function(me, torrent, remote) {
       remote.torrentGet([torrent.get('id')], ['peers'], function(torrents, remove) {
         if (torrents.length != 1) {
           store.removeAll();
@@ -84,8 +82,8 @@
       });
     },
 
-    onStop: function() {
-      this.getStore().removeAll();
+    onStop: function(me) {
+      me.getStore().removeAll();
     }
   });
 })();

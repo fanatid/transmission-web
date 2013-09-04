@@ -35,8 +35,16 @@ Ext.define('TrWeb.view.torrent.Open', {
       var input = document.getElementById(filefield.getEl().dom.id).querySelectorAll('input[name=file]')[0];
       input.addEventListener('change', function(evt) {
         var reader = new FileReader();
-        reader.onload = function(e) { me.metainfo = e.target.result; }
-        reader.readAsText(evt.target.files[0]);
+        reader.onload = function(e) {
+          var contents = e.target.result;
+          var key = "base64,"
+          var index = contents.indexOf(key);
+          if (index > -1)
+            me.metainfo = contents.substring(index + key.length);
+          else
+            me.metainfo = undefined;
+        };
+        reader.readAsDataURL(evt.target.files[0]);
       }, false);
     });
   },
@@ -45,7 +53,7 @@ Ext.define('TrWeb.view.torrent.Open', {
     var me = this;
 
     me.application.remote.torrentAdd({
-      'metainfo': TrWeb.Utils.b64encode(me.metainfo),
+      'metainfo': me.metainfo,
       'download-dir': me.down('textfield[name=dest]').getRawValue(),
       'paused': !me.down('checkboxfield[name=start]').getRawValue()
     }, me.addTorrentCallback, me);

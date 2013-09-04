@@ -109,6 +109,17 @@ Ext.define('TrWeb.Remote', {
     });
   },
 
+  // 3.5  Removing a Torrent
+  torrentRemove: function(ids, deleteData) {
+    this.sendRequest({
+      method: 'torrent-remove',
+      arguments: {
+        'ids': ids,
+        'delete-local-data': deleteData
+      }
+    });
+  },
+
   // 3.6 Moving a Torrent
   torrentSetLocation: function(ids, location, move) {
     this.sendRequest({

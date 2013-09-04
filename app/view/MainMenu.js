@@ -39,8 +39,6 @@ Ext.define('TrWeb.view.MainMenu', {
         id: 'mainmenu-torrent',
         plain: true,
         items: [
-          { text: 'Properties',                 disabled: true, cls: 'properties' },
-          '-',
           { text: 'Start',                      disabled: true, cls: 'start' },
           { text: 'Start Now',                  disabled: true, cls: 'start-now' },
           { text: 'Ask Tracker for More Peers', disabled: true, cls: 'ask-tracker' },

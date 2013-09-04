@@ -55,14 +55,13 @@ Ext.define('TrWeb.controller.MainMenu', {
       '#mainmenu-edit > [text="Deselect All"]':         { click: this.onEditDeselectAllClick },
       '#mainmenu-edit > [text="Preferences"]':          { click: this.onEditPreferencesClick },
 
-      '#mainmenu-torrent > [text="Properties"]':        { click: this.onTorrentPropertiesClick },
       '#mainmenu-torrent > [text="Start"]':             { click: this.onTorrentStartClick },
       '#mainmenu-torrent > [text="Start Now"]':         { click: this.onTorrentStartNowClick },
       '#mainmenu-torrent > [text="Ask Tracker for More Peers"]': { click: this.onTorrentAskTrackerClick },
       '#mainmenu-torrent > [text="Pause"]':             { click: this.onTorrentPauseClick },
       '#mainmenu-torrent > [text="Set Location"]':      { click: this.onTorrentSetLocationClick },
       '#mainmenu-torrent > [text="Verify Local Data"]': { click: this.onTorrentVerifyLocalDataClick },
-      '#mainmenu-torrent > [text="Remove"]':             { click: this.onTorrentRemoveClick },
+      '#mainmenu-torrent > [text="Remove"]':            { click: this.onTorrentRemoveClick },
       '#mainmenu-torrent > [text="Delete Files and Remove"]': { click: this.onTorrentRemoveWithFilesClick },
 
       '#mainmenu-help > [text="Statistics"]':           { click: this.onHelpStatisticsClick },
@@ -103,10 +102,6 @@ Ext.define('TrWeb.controller.MainMenu', {
   },
 
   // torrent menu
-  onTorrentPropertiesClick: function() {
-    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
-  },
-
   onTorrentStartClick: function() {
     this.application.remote.torrentStart(
       this.application.getController('Torrents').getSelectedTorrentsIds());
@@ -139,12 +134,44 @@ Ext.define('TrWeb.controller.MainMenu', {
       this.application.getController('Torrents').getSelectedTorrentsIds());
   },
 
+  torrentRemoveClickBase: function(msg, deletaData) {
+    var me = this;
+
+    Ext.Msg.show({
+      icon: Ext.MessageBox.QUESTION,
+      buttons: Ext.MessageBox.OKCANCEL,
+      buttonText: {
+        ok: 'Remove'
+      },
+      msg: msg,
+      fn: function(buttonId) {
+        if (buttonId == 'ok')
+          me.application.remote.torrentRemove(
+            me.application.getController('Torrents').getSelectedTorrentsIds(), deletaData);
+      }
+    });
+  },
+
   onTorrentRemoveClick: function() {
-    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
+    var msg,
+        count = this.application.getController('Torrents').getSelectedTorrents().length;
+    if (count == 1)
+      msg = 'Remove torrent?';
+    else
+      msg = 'Removed ' + count + ' torrents?'
+
+    this.torrentRemoveClickBase(msg, false);
   },
 
   onTorrentRemoveWithFilesClick: function() {
-    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
+    var msg,
+        count = this.application.getController('Torrents').getSelectedTorrents().length;
+    if (count == 1)
+      msg = "Delete the torrent's downloaded files?";
+    else
+      msg = "Delete these " + count + " torrent's downloaded files?";
+
+    this.torrentRemoveClickBase(msg, true);
   },
 
   // view menu

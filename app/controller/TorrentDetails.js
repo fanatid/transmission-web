@@ -14,7 +14,8 @@ Ext.define('TrWeb.controller.TorrentDetails', {
     'details.StatusTab',
     'details.FilesTab',
     'details.TrackersTab',
-    'details.PeersTab'
+    'details.PeersTab',
+    'details.OptionsTab'
   ],
 
   constructor: function(args) {
@@ -26,15 +27,15 @@ Ext.define('TrWeb.controller.TorrentDetails', {
 
     var _torrent = null;
     me.__defineSetter__('torrent', function(torrent) {
-      var eventName;
+      var eventNames;
 
       if (torrent)
-        eventName = _torrent ? 'update' : 'start';
+        eventNames = _torrent ? ['update', 'updatetorrent'] : ['start'];
       else
-        eventName = 'stop';
+        eventNames = ['stop'];
 
       _torrent = torrent;
-      me.fireEventArgs(eventName, [me]);
+      Ext.each(eventNames, function(eventName) { me.fireEventArgs(eventName, [me]); });
     });
     me.__defineGetter__('torrent', function() {
       return _torrent;
@@ -62,6 +63,7 @@ Ext.define('TrWeb.controller.TorrentDetails', {
     application.torrentdetails.on('tabchange', function(tabPanel, newCard, oldCard) {
       oldCard.fireEventArgs('stop', [oldCard]);
       me.fireEventArgs('update', [me]);
+      me.fireEventArgs('updatetorrent', [me]);
     });
   },
 
@@ -99,6 +101,8 @@ Ext.define('TrWeb.controller.TorrentDetails', {
   },
 
   onUpdateTorrent: function(me) {
+    if (me.application.torrentdetails.isDisabled())
+      return;
     var activeTab = me.application.torrentdetails.getActiveTab();
     activeTab.fireEventArgs('updatetorrent', [ activeTab, me.torrent ]);
   }

@@ -65,7 +65,7 @@ Ext.define('TrWeb.controller.Torrents', {
         allTorrents[torrent.id] = torrent;
       }
 
-      store.each(function(record) {
+      Ext.each(store.data.items, function(record) {
         if ((record.get('id') in allTorrents)) {
           record.beginEdit();
           record.set(allTorrents[record.get('id')]);

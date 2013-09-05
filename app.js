@@ -12,8 +12,11 @@ Ext.application({
 
   requires: [
     'Ext.container.Viewport',
+    'Ext.form.FieldSet',
+    'Ext.form.field.ComboBox',
     'Ext.form.field.File',
     'Ext.form.field.Radio',
+    'Ext.form.field.Spinner',
     'Ext.form.Label',
     'Ext.form.RadioGroup',
     'Ext.toolbar.TextItem',

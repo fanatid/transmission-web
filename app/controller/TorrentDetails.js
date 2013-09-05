@@ -21,89 +21,68 @@ Ext.define('TrWeb.controller.TorrentDetails', {
   constructor: function(args) {
     var me = this;
 
-    me.__defineGetter__('application', function() {
-      return args.application;
+    me.__defineGetter__('application', function() { return args.application; });
+    me.__defineGetter__('activeTab', function() {
+      return me.application.torrentdetails.getActiveTab();
     });
 
     var _torrent = null;
-    me.__defineSetter__('torrent', function(torrent) {
-      var eventNames;
-
-      if (torrent)
-        eventNames = _torrent ? ['update', 'updatetorrent'] : ['start'];
-      else
-        eventNames = ['stop'];
-
-      _torrent = torrent;
-      Ext.each(eventNames, function(eventName) { me.fireEventArgs(eventName, [me]); });
-    });
-    me.__defineGetter__('torrent', function() {
-      return _torrent;
-    });
-
-    args.application.on('start',  me.onApplicationStart,  me);
-    args.application.on('stop',   me.onApplicationStop,   me);
-    args.application.on('update', me.onApplicationUpdate, me);
+    me.__defineSetter__('torrent', function(torrent) { _torrent = torrent; });
+    me.__defineGetter__('torrent', function() { return _torrent; });
 
     me.callParent(arguments);
 
-    me.on('start',         me.onStart);
-    me.on('stop',          me.onStop);
-    me.on('update',        me.onUpdate);
-    me.on('updatetorrent', me.onUpdateTorrent)
+    me.on({
+      start:         me.onStart,
+      update:        me.onUpdate,
+      updatetorrent: me.onUpdateTorrent,
+      stop:          me.onStop
+    });
   },
 
   onLaunch: function(application) {
     var me = this;
 
     application.torrentgrid.on('selectionchange', function(grid, selected) {
-      me.torrent = selected.length == 1 ? selected[0] : null;
+      var torrent = selected.length == 1 ? selected[0] : null;
+      if (torrent) {
+        if (me.torrent) {
+          me.torrent = torrent;
+          me.fireEventArgs('update', [me]);
+          me.fireEventArgs('updatetorrent', [me]);
+        } else {
+          me.fireEventArgs('start', [me, torrent]);
+        }
+      } else {
+        me.fireEventArgs('stop', [me]);
+      }
     });
 
     application.torrentdetails.on('tabchange', function(tabPanel, newCard, oldCard) {
       oldCard.fireEventArgs('stop', [oldCard]);
-      me.fireEventArgs('update', [me]);
-      me.fireEventArgs('updatetorrent', [me]);
+      newCard.fireEventArgs('start', [newCard, me.torrent, me.application.remote]);
     });
   },
 
-  onApplicationStart: function() {
-    if (this.torrent)
-      this.fireEventArgs('start', [this]);
-  },
-
-  onStart: function(me) {
+  onStart: function(me, torrent) {
+    me.torrent = torrent;
     me.application.torrentdetails.enable();
-    me.fireEventArgs('update', [me]);
-    me.fireEventArgs('updatetorrent', [me]);
-  },
-
-  onApplicationStop: function() {
-    this.torrent = null;
-    this.fireEventArgs('stop', [this]);
+    me.activeTab.fireEventArgs('start', [me.activeTab, torrent, me.application.remote]);
   },
 
   onStop: function(me) {
+    me.torrent = null;
     me.application.torrentdetails.disable();
-    Ext.each(me.application.torrentdetails.query('panel'), function(tab) {
-      tab.fireEventArgs('stop', [tab]);
-    });
-  },
-
-  onApplicationUpdate: function() {
-    if (this.torrent)
-      this.fireEventArgs('update', [this]);
+    me.activeTab.fireEventArgs('stop', [me.activeTab]);
   },
 
   onUpdate: function(me) {
-    var activeTab = me.application.torrentdetails.getActiveTab();
-    activeTab.fireEventArgs('update', [ activeTab, me.torrent, me.application.remote ]);
+    if (!me.application.torrentdetails.isDisabled() && me.torrent)
+      me.activeTab.fireEventArgs('update', [me.activeTab, me.torrent, me.application.remote]);
   },
 
   onUpdateTorrent: function(me) {
-    if (me.application.torrentdetails.isDisabled())
-      return;
-    var activeTab = me.application.torrentdetails.getActiveTab();
-    activeTab.fireEventArgs('updatetorrent', [ activeTab, me.torrent ]);
+    if (!me.application.torrentdetails.isDisabled() && me.torrent)
+      me.activeTab.fireEventArgs('updatetorrent', [me.activeTab, me.torrent]);
   }
 });

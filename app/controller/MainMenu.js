@@ -6,14 +6,14 @@ Ext.define('TrWeb.controller.MainMenu', {
   ],
 
   constructor: function(args) {
-    this.__defineGetter__('application', function() {
-      return args.application;
-    });
-
-    args.application.on('start', this.onApplicationStart, this);
-    args.application.on('stop',  this.onApplicationStop,  this);
+    this.__defineGetter__('application', function() { return args.application; });
 
     this.callParent(arguments);
+
+    this.on({
+      start: this.onStart,
+      stop:  this.onStop
+    });
   },
 
   onLaunch: function(application) {
@@ -24,7 +24,7 @@ Ext.define('TrWeb.controller.MainMenu', {
     });
   },
 
-  onApplicationStart: function() {
+  onStart: function(me) {
     var items = new Array().concat(
       Ext.ComponentQuery.query("#mainmenu-file > menuitem"),
       Ext.ComponentQuery.query("#mainmenu-edit > menuitem"),
@@ -36,7 +36,7 @@ Ext.define('TrWeb.controller.MainMenu', {
     })
   },
 
-  onApplicationStop: function() {
+  onStop: function(me) {
     var items = Ext.ComponentQuery.query("mainmenu > menuitem");
 
     Ext.each(items, function(item) {
@@ -185,6 +185,7 @@ Ext.define('TrWeb.controller.MainMenu', {
     window.open('https://github.com/fanatid/transmission-web');
   },
 
+  //
   fileMenuSetActive: function(records) {
     var startAll = Ext.ComponentQuery.query('#mainmenu-file > menuitem[text="Start All"]')[0];
     var stopAll  = Ext.ComponentQuery.query('#mainmenu-file > menuitem[text="Stop All"]')[0];

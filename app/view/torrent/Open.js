@@ -17,12 +17,8 @@ Ext.define('TrWeb.view.torrent.Open', {
     }, me.commonItems);
 
     var _metainfo;
-    me.__defineSetter__('metainfo', function(metainfo) {
-      _metainfo = metainfo;
-    });
-    me.__defineGetter__('metainfo', function() {
-      return _metainfo;
-    });
+    me.__defineSetter__('metainfo', function(metainfo) { _metainfo = metainfo; });
+    me.__defineGetter__('metainfo', function() { return _metainfo; });
 
     me.callParent(arguments);
   },

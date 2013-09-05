@@ -36,17 +36,15 @@ Ext.define('TrWeb.view.stats.Toolbar', {
     var me = this;
 
     var _stats;
-    me.__defineSetter__('stats', function(stats) {
-      _stats = stats;
-    })
-    me.__defineGetter__('stats', function() {
-      return _stats;
-    });
+    me.__defineSetter__('stats', function(stats) { _stats = stats; });
+    me.__defineGetter__('stats', function() { return _stats; });
 
     me.callParent(arguments);
 
-    me.on('update', me.onUpdate);
-    me.on('clear',  me.onClear);
+    me.on({
+      update: me.onUpdate,
+      clear:  me.onClear
+    });
 
     Ext.each(me.query('button[cls~=info-type] menucheckitem'), function(item) {
       item.on('checkchange', me.updateInfoTypeLabel, me);

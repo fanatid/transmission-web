@@ -19,26 +19,27 @@ Ext.define('TrWeb.controller.Torrents', {
   constructor: function(args) {
     var me = this;
 
-    me.__defineGetter__('application', function() {
-      return args.application;
-    });
-
-    args.application.on('start',  me.onApplicationStart,  me);
-    args.application.on('stop',   me.onApplicationStop,   me);
-    args.application.on('update', me.onApplicationUpdate, me);
+    me.__defineGetter__('application', function() { return args.application; });
 
     me.callParent(arguments);
+
+    me.on({
+      start:  me.onStart,
+      update: me.onUpdate,
+      stop:   me.onStop
+    });
   },
 
-  onApplicationStart: function() {
+  onStart: function(me) {
+    me.updateTorrentsList();
   },
 
-  onApplicationStop: function() {
-    this.getStore('Torrents').removeAll();
+  onUpdate: function(me) {
+    me.updateTorrentsList();
   },
 
-  onApplicationUpdate: function() {
-    this.updateTorrentsList();
+  onStop: function(me) {
+    me.getStore('Torrents').removeAll();
   },
 
   updateTorrentsList: function() {

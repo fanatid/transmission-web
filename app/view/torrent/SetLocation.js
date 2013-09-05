@@ -44,12 +44,8 @@ Ext.define('TrWeb.view.torrent.SetLocation', {
       { text: 'Apply', handler: function() { me.moveData(); } }
     ];
 
-    this.__defineGetter__('application', function() {
-      return args.application;
-    });
-    this.__defineGetter__('torrents', function() {
-      return args.torrents;
-    });
+    this.__defineGetter__('application', function() { return args.application; });
+    this.__defineGetter__('torrents', function() { return args.torrents; });
 
     me.callParent(arguments);
   },

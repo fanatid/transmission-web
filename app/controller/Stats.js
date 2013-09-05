@@ -24,30 +24,28 @@ Ext.define('TrWeb.controller.Stats', {
   constructor: function(args) {
     var me = this;
 
-    me.__defineGetter__('application', function() {
-      return args.application;
-    });
-
-    args.application.on('start',  me.onApplicationStart,  me);
-    args.application.on('stop',   me.onApplicationStop,   me);
-    args.application.on('update', me.onApplicationUpdate, me);
+    me.__defineGetter__('application', function() { return args.application; });
 
     me.callParent(arguments);
+
+    me.on({
+      start:  me.onStart,
+      update: me.onUpdate,
+      stop:   me.onStop
+    });
   },
 
-  onApplicationStart: function() {
-    this.getStatsBar().fireEventArgs('clear', [this.getStatsBar()]);
-    this.getStatsWin().fireEventArgs('clear', [this.getStatsWin()]);
+  onStart: function(me) {
+    me.getStatsBar().fireEventArgs('clear', [me.getStatsBar()]);
+    me.getStatsWin().fireEventArgs('clear', [me.getStatsWin()]);
   },
 
-  onApplicationStop: function() {
-    this.getStatsBar().fireEventArgs('clear', [this.getStatsBar()]);
-    this.getStatsWin().fireEventArgs('clear', [this.getStatsWin()]);
+  onStop: function(me) {
+    me.getStatsBar().fireEventArgs('clear', [me.getStatsBar()]);
+    me.getStatsWin().fireEventArgs('clear', [me.getStatsWin()]);
   },
 
-  onApplicationUpdate: function() {
-    var me = this;
-
+  onUpdate: function(me) {
     me.application.remote.sessionStats(function(stats) {
       me.getStatsBar().fireEventArgs('update', [me.getStatsBar(), stats]);
       me.getStatsWin().fireEventArgs('update', [me.getStatsWin(), stats]);

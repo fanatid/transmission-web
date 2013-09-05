@@ -34,9 +34,7 @@ Ext.define('TrWeb.view.torrent.OpenBase', {
       { text: 'Add', handler: function() { me.addTorrent(); } }
     ];
 
-    me.__defineGetter__('application', function() {
-      return args.application;
-    });
+    me.__defineGetter__('application', function() { return args.application; });
 
     me.callParent(arguments);
   },

@@ -38,52 +38,68 @@
     },
 
     initComponent: function() {
-      this.callParent(arguments);
+      var me = this;
 
-      this.on('update', this.onUpdate);
-      this.on('stop',   this.onStop);
-    },
+      me.callParent(arguments);
 
-    onUpdate: function(me, torrent, remote) {
-      remote.torrentGet([torrent.get('id')], ['peers'], function(torrents, remove) {
-        if (torrents.length != 1) {
-          store.removeAll();
-          return;
+      var _active;
+      var updatePeersList = function(torrent, remote) {
+        remote.torrentGet([torrent.get('id')], ['id', 'peers'], function(torrents) {
+          if (_active && torrents.length == 1 && torrents[0].id == torrent.get('id'))
+            me.updateTab(torrents[0].peers);
+          else
+            me.clearTab();
+        });
+      }
+
+      this.on({
+        start: function(me, torrent, remote) {
+          _active = true;
+          updatePeersList(torrent, remote);
+        },
+        updatetorrent: function(me, torrent, remote) {
+          updatePeersList(torrent, remote);
+        },
+        stop: function(me, torrent) {
+          _active = false;
+          me.clearTab();
         }
-
-        var store = me.getStore();
-        var allPeers = {};
-
-        for (var index in torrents[0].peers) {
-          var peer = torrents[0].peers[index];
-          peer.id = peer.address + ':' + peer.port;
-          allPeers[peer.id] = peer;
-        }
-
-        for (var index in store.data.items) {
-          var record = store.data.items[index];
-          if ((record.get('id') in allPeers)) {
-            record.beginEdit();
-            record.set(allPeers[record.get('id')]);
-            record.endEdit(true);
-            delete allPeers[record.get('id')];
-          } else {
-            store.remove(record);
-          }
-        }
-
-        store.add(Object.keys(allPeers).map(function(key) {
-          return allPeers[key];
-        }));
-
-        store.commitChanges();
-
-        store.sort();
       });
     },
 
-    onStop: function(me) {
-      me.getStore().removeAll();
+    updateTab: function(peers) {
+      var store = this.getStore();
+      var allPeers = {};
+
+      for (var index in peers) {
+        var peer = peers[index];
+        peer.id = peer.address + ':' + peer.port;
+        allPeers[peer.id] = peer;
+      }
+
+      for (var index in store.data.items) {
+        var record = store.data.items[index];
+        if ((record.get('id') in allPeers)) {
+          record.beginEdit();
+          record.set(allPeers[record.get('id')]);
+          record.endEdit(true);
+          delete allPeers[record.get('id')];
+        } else {
+          store.remove(record);
+        }
+      }
+
+      store.add(Object.keys(allPeers).map(function(key) {
+        return allPeers[key];
+      }));
+
+      store.commitChanges();
+
+      store.sort();
+    },
+
+    clearTab: function() {
+      this.getStore().removeAll();
     }
   });
 })();

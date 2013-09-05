@@ -38,14 +38,10 @@ Ext.application({
     var me = this;
 
     var _task = Ext.create('Ext.util.TaskRunner').newTask({
-      run:      me.fireEvent,
-      scope:    me,
-      args:     ['update'],
+      run:      function() { me.fireEventArgs('update', [me]) },
       interval: 3000
     });
-    me.__defineGetter__('task', function() {
-      return _task;
-    });
+    me.__defineGetter__('task', function() { return _task; });
 
     me.callParent(arguments);
   },
@@ -73,17 +69,35 @@ Ext.application({
       ]
     });
 
-    me.addListener('start',  me.onStart,  me);
-    me.addListener('stop',   me.onStop,   me);
-    me.fireEvent('start');
+    me.on('start',  me.onStart);
+    me.on('update', me.onUpdate);
+    me.on('stop',   me.onStop);
+    me.fireEventArgs('start', [me]);
   },
 
-  onStart: function() {
-    this.task.start();
+  onStart: function(me) {
+    me.task.start();
+
+    Ext.each(['MainMenu', 'Stats', 'Torrents'], function(controllerName) {
+      var controller = me.getController(controllerName);
+      controller.fireEventArgs('start', [controller]);
+    });
   },
 
-  onStop: function(error) {
-    this.task.stop();
+  onUpdate: function(me) {
+    Ext.each(['Torrents', 'Stats', 'TorrentDetails'], function(controllerName) {
+      var controller = me.getController(controllerName);
+      controller.fireEventArgs('update', [controller]);
+    });
+  },
+
+  onStop: function(me, error) {
+    me.task.stop();
+
+    Ext.each(['MainMenu', 'Stats', 'Torrents', 'TorrentDetails'], function(controllerName) {
+      var controller = me.getController(controllerName);
+      controller.fireEventArgs('stop', [controller]);
+    });
 
     var msg = 'The connection to the server has been lost!'
     if (error)

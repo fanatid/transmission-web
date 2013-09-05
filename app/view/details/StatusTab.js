@@ -15,17 +15,30 @@ Ext.define('TrWeb.view.details.StatusTab', {
   initComponent: function() {
     this.callParent(arguments);
 
-    this.on('updatetorrent', this.onUpdateTorrent);
-    this.on('stop',          this.onStop);
+    this.on({
+      start: function(me, torrent) {
+        me.updateTab(torrent);
+      },
+      updatetorrent: function(me, torrent) {
+        me.updateTab(torrent);
+      },
+      stop: function(me, torrent) {
+        me.clearTab();
+      }
+    });
   },
 
-  onUpdateTorrent: function(me, torrent) {
+  updateTab: function(torrent) {
+    var me = this;
+
     var done = torrent.get('percentDone');
     me.down('progressbar').updateProgress(
       done, torrent.getHumanStatus() + ' ' + (done*100).toFixed(2) + ' %');
   },
 
-  onStop: function(me) {
+  clearTab: function() {
+    var me = this;
+
     me.down('progressbar').updateProgress(0, '');
     me.down('progressbar').updateText('');
   }

@@ -1,16 +1,10 @@
 Ext.define('TrWeb.Remote', {
   constructor: function(args) {
-    this.__defineGetter__('application', function() {
-      return args.application;
-    });
+    this.__defineGetter__('application', function() { return args.application; });
 
     var _token;
-    this.__defineGetter__('token', function() {
-      return _token;
-    });
-    this.__defineSetter__('token', function(token) {
-        _token = token;
-    });
+    this.__defineGetter__('token', function() { return _token; });
+    this.__defineSetter__('token', function(token) { _token = token; });
 
     return this;
   },
@@ -29,7 +23,7 @@ Ext.define('TrWeb.Remote', {
     if (!error.length)
       error = 'Server not responding';
 
-    this.application.fireEvent('stop', error);
+    this.application.fireEventArgs('stop', [this.application, error]);
   },
 
   sendRequest: function(data, callback, context) {

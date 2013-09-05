@@ -96,18 +96,16 @@ Ext.define('TrWeb.view.stats.Window', {
     var me = this;
 
     var _stats;
-    me.__defineSetter__('stats', function(stats) {
-      _stats = stats;
-    })
-    me.__defineGetter__('stats', function() {
-      return _stats;
-    });
+    me.__defineSetter__('stats', function(stats) { _stats = stats; });
+    me.__defineGetter__('stats', function() { return _stats; });
 
     me.callParent(arguments);
 
-    me.on('update', me.onUpdate);
-    me.on('clear',  me.onClear);
-    me.on('show',   me.updateWindow);
+    me.on({
+      update: me.onUpdate,
+      clear:  me.onClear,
+      show:   me.updateWindow
+    });
   },
 
   onUpdate: function(me, stats) {

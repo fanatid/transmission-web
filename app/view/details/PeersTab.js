@@ -42,8 +42,8 @@
 
       me.callParent(arguments);
 
-      var _active;
-      var updatePeersList = function(torrent, remote) {
+      var _active = false;
+      var getPeersList = function(torrent, remote) {
         remote.torrentGet([torrent.get('id')], ['id', 'peers'], function(torrents) {
           if (_active && torrents.length == 1 && torrents[0].id == torrent.get('id'))
             me.updateTab(torrents[0].peers);
@@ -55,10 +55,10 @@
       this.on({
         start: function(me, torrent, remote) {
           _active = true;
-          updatePeersList(torrent, remote);
+          getPeersList(torrent, remote);
         },
         updatetorrent: function(me, torrent, remote) {
-          updatePeersList(torrent, remote);
+          getPeersList(torrent, remote);
         },
         stop: function(me, torrent) {
           _active = false;

@@ -42,6 +42,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.GroupTabPanel": [],
   "Ext.ux.grid.filter.StringFilter": [],
   "TrWeb.store.Torrents": [],
+  "TrWeb.FloatField": [],
   "Ext.ux.statusbar.ValidationStatus": [],
   "TrWeb.view.MainMenu": [],
   "Ext.ux.layout.Center": [],
@@ -154,6 +155,9 @@ Ext.ClassManager.addNameAliasMappings({
     "gridfilter.string"
   ],
   "TrWeb.store.Torrents": [],
+  "TrWeb.FloatField": [
+    "widget.floatfield"
+  ],
   "Ext.ux.statusbar.ValidationStatus": [],
   "TrWeb.view.MainMenu": [
     "widget.mainmenu"

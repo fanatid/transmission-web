@@ -69,6 +69,19 @@ Ext.define('TrWeb.Remote', {
     this.actionRequests('torrent-reannounce', ids);
   },
 
+  // 3.2  Torrent Mutators
+  torrentSet: function(ids, args, callback, context) {
+    args['ids'] = ids;
+    var data = {
+      method: 'torrent-set',
+      arguments: args
+    };
+
+    this.sendRequest(data, function(response) {
+      callback.call(context);
+    });
+  },
+
   // 3.3 Torrent Accessors
   torrentGet: function(ids, fields, callback, context) {
     var data = {

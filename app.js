@@ -16,12 +16,12 @@ Ext.application({
     'Ext.form.field.ComboBox',
     'Ext.form.field.File',
     'Ext.form.field.Radio',
-    'Ext.form.field.Spinner',
     'Ext.form.Label',
     'Ext.form.RadioGroup',
     'Ext.toolbar.TextItem',
     'Ext.window.MessageBox',
     'Ext.util.Point',
+    'TrWeb.FloatField',
     'TrWeb.Remote',
     'TrWeb.Utils'
   ],

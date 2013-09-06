@@ -43,6 +43,8 @@ Ext.define('TrWeb.controller.TorrentDetails', {
   onLaunch: function(application) {
     var me = this;
 
+    Ext.ComponentQuery.query('torrentdetails optionstab')[0].preferences = application.getController('Preferences');
+
     application.torrentgrid.on('selectionchange', function(grid, selected) {
       var torrent = selected.length == 1 ? selected[0] : null;
       if (torrent) {
@@ -60,7 +62,7 @@ Ext.define('TrWeb.controller.TorrentDetails', {
 
     application.torrentdetails.on('tabchange', function(tabPanel, newCard, oldCard) {
       oldCard.fireEventArgs('stop', [oldCard]);
-      newCard.fireEventArgs('start', [newCard, me.torrent, me.application.remote]);
+      newCard.fireEventArgs('start', [newCard, me.torrent, application.remote]);
     });
   },
 

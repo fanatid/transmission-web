@@ -11,6 +11,7 @@ Ext.application({
   name: 'TrWeb',
 
   requires: [
+    'Ext.layout.container.Border',
     'Ext.layout.container.Column',
     'Ext.container.Viewport',
     'Ext.form.FieldSet',
@@ -52,22 +53,36 @@ Ext.application({
 
     me.remote         = Ext.create('TrWeb.Remote', { application: me });
     me.mainmenu       = Ext.widget('mainmenu');
-    me.torrentgrid    = Ext.widget('torrentgrid', { flex: 5 });
-    me.torrentdetails = Ext.widget('torrentdetails', { flex: 2 });
+    me.torrentgrid    = Ext.widget('torrentgrid');
+    me.torrentdetails = Ext.widget('torrentdetails');
     me.statsbar       = Ext.widget('statsbar');
     me.statswin       = Ext.widget('statswin');
 
     Ext.create('Ext.container.Viewport', {
-      layout: {
-        type: 'vbox',
-        align: 'stretch'
-      },
-      items: [
-        me.mainmenu,
-        me.torrentgrid,
-        me.torrentdetails,
-        me.statsbar
-      ]
+      layout: 'fit',
+      items: [{
+        layout: 'border',
+        border: false,
+        tbar: me.mainmenu,
+        items: [
+          {
+            region: 'center',
+            layout: 'fit',
+            items: [me.torrentgrid]
+          },
+          {
+            region: 'south',
+            height: 220,
+            minSize: 160,
+            split: true,
+            collapsible: true,
+            layout: 'fit',
+            header: false,
+            items: [me.torrentdetails]
+          }
+        ],
+        bbar: me.statsbar
+      }]
     });
 
     me.on('start',  me.onStart);

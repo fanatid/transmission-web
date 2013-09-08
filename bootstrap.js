@@ -33,6 +33,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "TrWeb.view.torrent.OpenBase": [],
   "TrWeb.view.stats.Toolbar": [],
   "TrWeb.view.torrent.OpenUrl": [],
+  "TrWeb.store.Files": [],
   "TrWeb.Remote": [],
   "Ext.ux.form.MultiSelect": [
     "Ext.ux.Multiselect"
@@ -68,6 +69,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.grid.menu.RangeMenu": [],
   "Ext.ux.RowExpander": [],
   "Ext.ux.event.Recorder": [],
+  "TrWeb.model.File": [],
   "Ext.ux.event.Player": [],
   "TrWeb.view.details.StatusTab": [],
   "Ext.ux.ajax.SimManager": [],
@@ -141,6 +143,7 @@ Ext.ClassManager.addNameAliasMappings({
   "TrWeb.view.torrent.OpenUrl": [
     "widget.torrentopenurl"
   ],
+  "TrWeb.store.Files": [],
   "TrWeb.Remote": [],
   "Ext.ux.form.MultiSelect": [
     "widget.multiselect",
@@ -203,6 +206,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.grid.menu.RangeMenu": [],
   "Ext.ux.RowExpander": [],
   "Ext.ux.event.Recorder": [],
+  "TrWeb.model.File": [],
   "Ext.ux.event.Player": [],
   "TrWeb.view.details.StatusTab": [
     "widget.statustab"

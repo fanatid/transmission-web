@@ -2,11 +2,11 @@ Ext.define('TrWeb.controller.TorrentDetails', {
   extend: 'Ext.app.Controller',
 
   stores: [
-    'Peers'
+    'Files', 'Peers'
   ],
 
   models: [
-    'Peer'
+    'File', 'Peer'
   ],
 
   views: [

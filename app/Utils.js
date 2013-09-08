@@ -16,6 +16,13 @@
         return Ext.String.format(cellProgressBarRendererTpl, text, value);
       },
 
+      percentDoneRenderer: function(value) {
+        value = (value*100).toFixed(2);
+        var text = value + ' %';
+
+        return TrWeb.Utils.cellProgressBarRenderer(text, value);
+      },
+
       sizeToHuman: function(value) {
         if (value < 1024)
           return (value).toFixed(2).toString() + ' B';

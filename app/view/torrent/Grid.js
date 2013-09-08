@@ -6,26 +6,8 @@
     return TrWeb.Utils.cellProgressBarRenderer(text, value);
   }
 
-  function ETARenderer(value) {
-    if (value == -1)
-      return '∞';
-    if (value == -2)
-      return 'Unknow';
-    if (value < 90)
-      return value.toString() + 's';
-    if (value < 5460) {
-      m = Math.floor(value / 60);
-      s = value % 60;
-      return m.toString() + 'm and ' + s.toString() + 's';
-    }
-    if (value < 133200) {
-      h = Math.floor(value / (60 * 60));
-      m = Math.floor((value % (60 * 60)) / 60);
-      return h.toString() + ' hours and ' + m.toString() + 'm';
-    }
-    d = Math.floor(value / (24 * 60 * 60));
-    h = Math.floor((value % (24 * 60 * 60)) / (60 * 60));
-    return d.toString() + ' days and ' + h.toString() + ' hours';
+  function EtaRenderer(value, metaData, record) {
+    return record.getHumanEta();
   }
 
   Ext.define('TrWeb.view.torrent.Grid', {
@@ -43,7 +25,7 @@
         { text: 'Progress',   dataIndex: 'percentDone',  renderer: percentDoneRenderer, flex: 2 },
         { text: 'Down Speed', dataIndex: 'rateDownload', renderer: TrWeb.Utils.speedToHuman },
         { text: 'Up Speed',   dataIndex: 'rateUpload',   renderer: TrWeb.Utils.speedToHuman },
-        { text: 'ETA',        dataIndex: 'eta',          renderer: ETARenderer },
+        { text: 'ETA',        dataIndex: 'eta',          renderer: EtaRenderer },
         { text: 'Uploaded',   dataIndex: 'uploadedEver', renderer: TrWeb.Utils.sizeToHuman }
       ],
       defaults: {

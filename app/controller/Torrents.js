@@ -54,7 +54,21 @@ Ext.define('TrWeb.controller.Torrents', {
       'rateUpload',
       'eta',
       'uploadedEver',
-      'downloadDir'
+      'downloadDir',
+
+      'sizeWhenDone',
+      'haveValid',
+      'pieceCount',
+      'pieceSize',
+      'downloadedEver',
+      'corruptEver',
+      'uploadedEver',
+      'startDate',
+      'activityDate',
+      'hashString',
+      'isPrivate',
+      'creator',
+      'dateCreated'
     ];
 
     me.application.remote.torrentGet(undefined, fields, function(torrents, remove) {
@@ -88,7 +102,7 @@ Ext.define('TrWeb.controller.Torrents', {
       me.application.getController('MainMenu').fileMenuSetActive(store.data.items);
       me.application.getController('MainMenu').torrentMenuSetActive(me.getSelectedTorrents());
 
-      me.application.torrentdetails.fireEventArgs('updatetorrent', [me.application.torrentdetails]);
+      me.application.getController('TorrentDetails').fireEventArgs('updatetorrent', [me.application.getController('TorrentDetails')]);
     }, me);
   },
 

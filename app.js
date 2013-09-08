@@ -11,6 +11,7 @@ Ext.application({
   name: 'TrWeb',
 
   requires: [
+    'Ext.layout.container.Column',
     'Ext.container.Viewport',
     'Ext.form.FieldSet',
     'Ext.form.field.ComboBox',

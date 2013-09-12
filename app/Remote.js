@@ -140,6 +140,24 @@ Ext.define('TrWeb.Remote', {
   },
 
   // 4.1  Session Arguments
+  // 4.1.1.  Mutators
+  sessionSet: function(session, callback, context) {
+    var denied = ['blocklist-size', 'config-dir', 'rpc-version', 'rpc-version-minimum', 'version'];
+    Ext.each(denied, function(field) {
+      delete session[field];
+    });
+
+    var data = {
+      method: 'session-set',
+      arguments: session
+    };
+
+    this.sendRequest(data, function(response) {
+      callback.call(context);
+    });
+  },
+
+  // 4.1.2.  Accessors
   sessionGet: function(callback, context) {
     this.sendRequest({ method: 'session-get' }, function(response) {
       callback.call(context, JSON.parse(response.responseText)['arguments']);

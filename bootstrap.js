@@ -76,6 +76,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "TrWeb.store.Peers": [],
   "Ext.ux.grid.filter.BooleanFilter": [],
   "Ext.ux.ToolbarDroppable": [],
+  "TrWeb.view.Preferences": [],
   "Ext.ux.event.Maker": [],
   "TrWeb.view.details.OptionsTab": [],
   "Ext.ux.TabScrollerMenu": [],
@@ -217,6 +218,9 @@ Ext.ClassManager.addNameAliasMappings({
     "gridfilter.boolean"
   ],
   "Ext.ux.ToolbarDroppable": [],
+  "TrWeb.view.Preferences": [
+    "widget.prefwin"
+  ],
   "Ext.ux.event.Maker": [],
   "TrWeb.view.details.OptionsTab": [
     "widget.optionstab"

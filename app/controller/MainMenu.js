@@ -98,7 +98,7 @@ Ext.define('TrWeb.controller.MainMenu', {
   },
 
   onEditPreferencesClick: function() {
-    Ext.Msg.show({ msg: 'in todo list...', buttons: Ext.Msg.OK });
+    this.application.prefwin.show();
   },
 
   // torrent menu

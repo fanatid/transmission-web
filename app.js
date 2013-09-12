@@ -53,6 +53,7 @@ Ext.application({
 
     me.remote         = Ext.create('TrWeb.Remote', { application: me });
     me.mainmenu       = Ext.widget('mainmenu');
+    me.prefwin        = Ext.widget('prefwin');
     me.torrentgrid    = Ext.widget('torrentgrid');
     me.torrentdetails = Ext.widget('torrentdetails');
     me.statsbar       = Ext.widget('statsbar');
@@ -94,7 +95,7 @@ Ext.application({
   onStart: function(me) {
     me.task.start();
 
-    Ext.each(['MainMenu', 'Stats', 'Torrents'], function(controllerName) {
+    Ext.each(['MainMenu', 'Preferences', 'Stats', 'Torrents'], function(controllerName) {
       var controller = me.getController(controllerName);
       controller.fireEventArgs('start', [controller]);
     });
@@ -110,7 +111,7 @@ Ext.application({
   onStop: function(me, error) {
     me.task.stop();
 
-    Ext.each(['MainMenu', 'Stats', 'Torrents', 'TorrentDetails'], function(controllerName) {
+    Ext.each(['MainMenu', 'Preferences', 'Stats', 'Torrents', 'TorrentDetails'], function(controllerName) {
       var controller = me.getController(controllerName);
       controller.fireEventArgs('stop', [controller]);
     });

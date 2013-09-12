@@ -13,3 +13,7 @@ Move the transmission-web files in the right location, and the next time you sta
 #### Linux
 Without overwriting the default Web Interface, you can drop the transmission-web files into: `~/.local/share/transmission/web/`.
 
+## Screenshots
+[![](https://raw.github.com/fanatid/transmission-web/screenshots/screen1.thumb.png)](https://raw.github.com/fanatid/transmission-web/screenshots/screen1.png)
+[![](https://raw.github.com/fanatid/transmission-web/screenshots/screen2.thumb.png)](https://raw.github.com/fanatid/transmission-web/screenshots/screen2.png)
+[![](https://raw.github.com/fanatid/transmission-web/screenshots/screen3.thumb.png)](https://raw.github.com/fanatid/transmission-web/screenshots/screen3.png)
